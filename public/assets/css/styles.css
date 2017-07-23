@@ -1,0 +1,12 @@
+body{
+	background:rgb(202, 197, 195);
+}
+.label-alert {
+	background-color: #8a0505;
+}
+h1{
+	color: #c9252c;
+}
+ul.nav-tabs li:not(.active) a{
+	color: #c9252c;
+}

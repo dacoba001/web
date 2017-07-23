@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="lorenzetti@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.3">
+    <root id="1"/>
+    <schema id="2" parent="1" name="lorenzetti">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="american_windows"/>
+    <schema id="4" parent="1" name="asd"/>
+    <schema id="5" parent="1" name="cominf"/>
+    <schema id="6" parent="1" name="cominf_bkp"/>
+    <schema id="7" parent="1" name="create_tables"/>
+    <schema id="8" parent="1" name="crunch_expenses"/>
+    <schema id="9" parent="1" name="curso_laravel"/>
+    <schema id="10" parent="1" name="escuela"/>
+    <schema id="11" parent="1" name="escuela2"/>
+    <schema id="12" parent="1" name="gcm"/>
+    <schema id="13" parent="1" name="hotel"/>
+    <schema id="14" parent="1" name="huellita"/>
+    <schema id="15" parent="1" name="imejillones"/>
+    <schema id="16" parent="1" name="information_schema"/>
+    <schema id="17" parent="1" name="lastminute"/>
+    <schema id="18" parent="1" name="login"/>
+    <schema id="19" parent="1" name="minipos"/>
+    <schema id="20" parent="1" name="minipos2"/>
+    <schema id="21" parent="1" name="minipos3"/>
+    <schema id="22" parent="1" name="mysql"/>
+    <schema id="23" parent="1" name="performance_schema"/>
+    <schema id="24" parent="1" name="phpmyadmin"/>
+    <schema id="25" parent="1" name="proyecto"/>
+    <schema id="26" parent="1" name="restaurante"/>
+    <schema id="27" parent="1" name="services"/>
+    <schema id="28" parent="1" name="sis_cominf"/>
+    <schema id="29" parent="1" name="terminal"/>
+    <schema id="30" parent="1" name="terminal2"/>
+    <schema id="31" parent="1" name="test"/>
+    <schema id="32" parent="1" name="turismo2"/>
+    <schema id="33" parent="1" name="universidades"/>
+    <schema id="34" parent="1" name="wordpress"/>
+    <table id="35" parent="2" name="clientes"/>
+    <table id="36" parent="2" name="migrations"/>
+    <table id="37" parent="2" name="password_resets"/>
+    <table id="38" parent="2" name="productos"/>
+    <table id="39" parent="2" name="stocks"/>
+    <table id="40" parent="2" name="tipos"/>
+    <table id="41" parent="2" name="users"/>
+    <table id="42" parent="2" name="usuarios"/>
+    <column id="43" parent="35" name="id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="44" parent="35" name="cli_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="35" name="cli_direccion">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="35" name="cli_zona">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="35" name="created_at">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <column id="48" parent="35" name="updated_at">
+      <Position>6</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <index id="49" parent="35" name="clientes_cli_nombre_unique">
+      <ColNames>cli_nombre</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="50" parent="35" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="51" parent="35" name="clientes_cli_nombre_unique">
+      <ColNames>cli_nombre</ColNames>
+      <UnderlyingIndexName>clientes_cli_nombre_unique</UnderlyingIndexName>
+    </key>
+    <column id="52" parent="36" name="migration">
+      <Position>1</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="36" name="batch">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="54" parent="37" name="email">
+      <Position>1</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="55" parent="37" name="token">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="37" name="created_at">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <index id="57" parent="37" name="password_resets_email_index">
+      <ColNames>email</ColNames>
+    </index>
+    <index id="58" parent="37" name="password_resets_token_index">
+      <ColNames>token</ColNames>
+    </index>
+    <column id="59" parent="38" name="id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="60" parent="38" name="pro_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="61" parent="38" name="pro_descripcion">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="62" parent="38" name="pro_codigo">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="63" parent="38" name="tipo_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="38" name="created_at">
+      <Position>6</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <column id="65" parent="38" name="updated_at">
+      <Position>7</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <index id="66" parent="38" name="productos_pro_codigo_unique">
+      <ColNames>pro_codigo</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="67" parent="38" name="productos_pro_nombre_unique">
+      <ColNames>pro_nombre</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="68" parent="38" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="69" parent="38" name="productos_pro_nombre_unique">
+      <ColNames>pro_nombre</ColNames>
+      <UnderlyingIndexName>productos_pro_nombre_unique</UnderlyingIndexName>
+    </key>
+    <key id="70" parent="38" name="productos_pro_codigo_unique">
+      <ColNames>pro_codigo</ColNames>
+      <UnderlyingIndexName>productos_pro_codigo_unique</UnderlyingIndexName>
+    </key>
+    <column id="71" parent="39" name="id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="72" parent="39" name="stk_cantidad">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="73" parent="39" name="stk_precio">
+      <Position>3</Position>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="74" parent="39" name="stk_cantmin">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="75" parent="39" name="producto_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="76" parent="39" name="created_at">
+      <Position>6</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <column id="77" parent="39" name="updated_at">
+      <Position>7</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <key id="78" parent="39" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="79" parent="40" name="id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="80" parent="40" name="tip_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="81" parent="40" name="created_at">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <column id="82" parent="40" name="updated_at">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <index id="83" parent="40" name="tipos_tip_nombre_unique">
+      <ColNames>tip_nombre</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="84" parent="40" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="85" parent="40" name="tipos_tip_nombre_unique">
+      <ColNames>tip_nombre</ColNames>
+      <UnderlyingIndexName>tipos_tip_nombre_unique</UnderlyingIndexName>
+    </key>
+    <column id="86" parent="41" name="id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="87" parent="41" name="nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="88" parent="41" name="appaterno">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="89" parent="41" name="apmaterno">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="90" parent="41" name="fecha_nac">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="91" parent="41" name="telefono">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="92" parent="41" name="nombredeusuario">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="93" parent="41" name="tipo_cuenta">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="94" parent="41" name="email">
+      <Position>9</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="95" parent="41" name="password">
+      <Position>10</Position>
+      <DataType>varchar(60)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="96" parent="41" name="remember_token">
+      <Position>11</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="97" parent="41" name="created_at">
+      <Position>12</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <column id="98" parent="41" name="updated_at">
+      <Position>13</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <index id="99" parent="41" name="users_email_unique">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="100" parent="41" name="users_nombredeusuario_unique">
+      <ColNames>nombredeusuario</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="101" parent="41" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="102" parent="41" name="users_nombredeusuario_unique">
+      <ColNames>nombredeusuario</ColNames>
+      <UnderlyingIndexName>users_nombredeusuario_unique</UnderlyingIndexName>
+    </key>
+    <key id="103" parent="41" name="users_email_unique">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>users_email_unique</UnderlyingIndexName>
+    </key>
+    <column id="104" parent="42" name="id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="105" parent="42" name="nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="106" parent="42" name="appaterno">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="107" parent="42" name="apmaterno">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="108" parent="42" name="tipo_cuenta">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="109" parent="42" name="telefono">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="110" parent="42" name="nacimiento">
+      <Position>7</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="111" parent="42" name="email">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="112" parent="42" name="usuario">
+      <Position>9</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="113" parent="42" name="password">
+      <Position>10</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="114" parent="42" name="remember_token">
+      <Position>11</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="115" parent="42" name="created_at">
+      <Position>12</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <column id="116" parent="42" name="updated_at">
+      <Position>13</Position>
+      <DataType>timestamp|0</DataType>
+    </column>
+    <index id="117" parent="42" name="usuarios_email_unique">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="118" parent="42" name="usuarios_usuario_unique">
+      <ColNames>usuario</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="119" parent="42" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="120" parent="42" name="usuarios_email_unique">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>usuarios_email_unique</UnderlyingIndexName>
+    </key>
+    <key id="121" parent="42" name="usuarios_usuario_unique">
+      <ColNames>usuario</ColNames>
+      <UnderlyingIndexName>usuarios_usuario_unique</UnderlyingIndexName>
+    </key>
+  </database-model>
+</dataSource>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Importadora Parra</title>
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/spaces.css" rel="stylesheet">
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Importadora Parra
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Administrar Usuarios</a>
+                </li>
+                <li>
+                    <a href="#">Administrar Clientes</a>
+                </li>
+                <li>
+                    <a href="#">Administrar Productos</a>
+                </li>
+                <li>
+                    <a href="#">Administrar Stock</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div style="color:#c9252c;float:right;font-size:40pt;font-family: sans-serif;margin-right:20px">PARRA</div>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Administrar Usuarios</h1>
+                        <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Registrar usuario
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form role="form">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Nombre:</label>
+                                                    <input class="form-control" placeholder="Nombre del usuario">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                 <div class="form-group">
+                                                    <label>Apellido paterno</label>
+                                                    <input class="form-control" placeholder="Apellido paterno del usuario">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                 <div class="form-group">
+                                                    <label>Apellido materno</label>
+                                                    <input class="form-control" placeholder="Apellido materno del usuario">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Tipo de cuenta</label>
+                                                    <select class="form-control">
+                                                        <option>Administrador</option>
+                                                        <option>Secretaria</option>
+                                                        <option>Cliente</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Nombre de Usuario</label>
+                                                    <input class="form-control" placeholder="Nombre de la cuenta de usuario">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Contraseña</label>
+                                                    <input type="password" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Confirma tu contraseña</label>
+                                                    <input type="password" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Correo</label>
+                                                    <input class="form-control" placeholder="Correo del usuario">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <label>Fecha de nacimiento</label>
+                                                    <input type="date" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <label>Telefono</label>
+                                                    <input class="form-control" placeholder="Telefono del usuario">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn pull-right btn-success margin-left-md">Registrar usuario</button>
+                                        <button type="reset" class="btn pull-right btn-danger">Cancelar regisro</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+</body>
+</html>
