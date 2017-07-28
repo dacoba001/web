@@ -23,33 +23,53 @@
                                     {{ csrf_field() }}
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Nombre del Producto:</label>
-                                                    <input name="pro_nombre" class="form-control" placeholder="Nombre del producto">
+                                                <div class="form-group{{ $errors->has('pro_nombre') ? ' has-error' : '' }}">
+                                                    <label for="pro_nombre" class="control-label">Nombre del Producto:</label>
+                                                    <input name="pro_nombre" class="form-control" placeholder="Nombre del producto" value="{{ old('pro_nombre') }}">
+                                                    @if ($errors->has('pro_nombre'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('pro_nombre') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Descripcion del Producto</label>
-                                            <textarea name="pro_descripcion" class="form-control" rows="3"></textarea>
+                                        <div class="form-group{{ $errors->has('pro_descripcion') ? ' has-error' : '' }}">
+                                            <label for="pro_descripcion" class="control-label">Descripcion del Producto</label>
+                                            <textarea name="pro_descripcion" class="form-control" rows="3">{{ old('pro_descripcion') }}</textarea>
+                                            @if ($errors->has('pro_descripcion'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('pro_descripcion') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                         
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Codigo del Producto</label>
-                                                    <input name="pro_codigo" class="form-control" placeholder="codigo del producto">
+                                                <div class="form-group{{ $errors->has('pro_codigo') ? ' has-error' : '' }}">
+                                                    <label for="pro_codigo" class="control-label">Codigo del Producto</label>
+                                                    <input name="pro_codigo" class="form-control" placeholder="codigo del producto" value="{{ old('pro_codigo') }}">
+                                                    @if ($errors->has('pro_codigo'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('pro_codigo') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Tipo de Producto</label>
+                                                <div class="form-group{{ $errors->has('tipo_id') ? ' has-error' : '' }}">
+                                                    <label for="tipo_id" class="control-label">Tipo de Producto</label>
                                                     <select name="tipo_id" class="form-control">
                                                         @foreach ( $tipos as $tipo )
-                                                            <option value="{{$tipo['id']}}">{{$tipo['tip_nombre']}}</option>
+                                                            <option value="{{$tipo['id']}}" @if (old('tipo_id') == $tipo['id']) selected @endif >{{$tipo['tip_nombre']}}</option>
                                                         @endforeach
                                                     </select>
+                                                    @if ($errors->has('tipo_id'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('tipo_id') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

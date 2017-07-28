@@ -20,6 +20,7 @@ class ProductosController extends Controller
             return Validator::make($data, [
                     'pro_nombre' => 'required|max:255|unique:productos',
                     'pro_codigo' => 'required|max:255|unique:productos',
+                    'tipo_id' => 'required',
             ]);
         }
         if($option == 'update'){

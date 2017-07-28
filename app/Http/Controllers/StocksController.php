@@ -20,6 +20,7 @@ class StocksController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'producto_id' => 'required',
             'stk_cantmin' => 'required|max:255',
             ]);
     }

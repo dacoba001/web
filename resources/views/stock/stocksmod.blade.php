@@ -26,29 +26,49 @@
 								{{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Producto</label>
-                                            <input name="producto_id" class="form-control" value="{{$stock['producto']['tipo']['tip_nombre']}}, {{$stock['producto']['pro_nombre']}}" disabled>
+                                        <div class="form-group{{ $errors->has('producto_id') ? ' has-error' : '' }}">
+                                            <label for="producto_id" class="control-label">Producto</label>
+                                            <input name="producto_id" class="form-control" value="{{$stock['producto']['tipo']['tip_nombre']}}, {{$stock['producto']['pro_nombre']}}" readonly>
                                         </div>
+                                        @if ($errors->has('producto_id'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('producto_id') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Cantidad en Cajas</label>
+                                        <div class="form-group{{ $errors->has('stk_cantidad') ? ' has-error' : '' }}">
+                                            <label for="stk_cantidad" class="control-label">Cantidad en Cajas</label>
                                             <input name="stk_cantidad" type="number" class="form-control" placeholder="cantidad del producto" value="{{$stock['stk_cantidad']}}">
+                                            @if ($errors->has('stk_cantidad'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('stk_cantidad') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Precio del Producto</label>
-                                            <input name="stk_precio" type="number" class="form-control" placeholder="precio del producto" value="{{$stock['stk_precio']}}">
+                                        <div class="form-group{{ $errors->has('stk_precio') ? ' has-error' : '' }}">
+                                            <label for="stk_precio" class="control-label">Precio del Producto</label>
+                                            <input name="stk_precio" type="number" step="0.01" class="form-control" placeholder="precio del producto" value="{{$stock['stk_precio']}}">
+                                            @if ($errors->has('stk_precio'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('stk_precio') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Cantidad de Stock Minima</label>
+                                        <div class="form-group{{ $errors->has('stk_cantmin') ? ' has-error' : '' }}">
+                                            <label for="stk_cantmin" class="control-label">Cantidad de Stock Minima</label>
                                             <input name="stk_cantmin" type="number" class="form-control" placeholder="cantidad minima del producto" value="{{$stock['stk_cantmin']}}">
+                                            @if ($errors->has('stk_cantmin'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('stk_cantmin') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

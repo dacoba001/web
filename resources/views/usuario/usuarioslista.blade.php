@@ -4,17 +4,17 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <h1>Administrar usuarios</h1>
+                <h1>Administrar Usuarios</h1>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="">Morstar usuarios</a></li>
-                    <li><a href="{{route('reg_usuarios')}}">Registrar usuario</a></li>
+                    <li class="active"><a href="">Morstar Usuarios</a></li>
+                    <li><a href="{{route('reg_usuarios')}}">Registrar Usuario</a></li>
                 </ul>
                 <br>
                 <div class="row">
             <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Registrar usuario
+                    Registrar Usuario
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -22,13 +22,13 @@
                             <table class="table table-bordered">
                                 <thead>
                                   <tr>
-                                    <th>Nombre de usuario</th>
-                                    <th>Tipo de cuenta</th>
+                                    <th>Nombre de Usuario</th>
+                                    <th>Tipo de Cuenta</th>
                                     <th>Nombre</th>
                                     <th>Apellido Paterno</th>
                                     <th>Apellido Materno</th>
-                                    <th>Fecha de nacimiento</th>
-                                    <th>Correo electronico</th>
+                                    <th>Fecha de Nacimiento</th>
+                                    <th>Correo Electronico</th>
                                     <th>Telefono</th>
                                     <th class="text-center">Modificar</th>
                                     <th class="text-center">Eliminar</th>

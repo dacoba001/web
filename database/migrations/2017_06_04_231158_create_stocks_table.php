@@ -15,9 +15,10 @@ class CreateStocksTable extends Migration
         Schema::create('stocks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('stk_cantidad');
+            $table->integer('stk_cantmin');
             $table->double('stk_precio');
-            $table->string('stk_cantmin');
-            $table->integer('producto_id');
+            $table->integer('producto_id')->unsigned();
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }

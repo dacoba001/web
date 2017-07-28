@@ -71,7 +71,7 @@ class TiposController extends Controller
     }
     public function destroy($id)
     {
-        $this->delete_json('http://localhost:8002/tipos/'.$id, 'DELETE');
+        echo $this->delete_json('http://localhost:8002/tipos/'.$id, 'DELETE');
         $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
         return view('tipo.tiposlista',['tipos' => $tipos]);
     }

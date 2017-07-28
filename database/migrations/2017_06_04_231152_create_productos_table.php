@@ -17,7 +17,8 @@ class CreateProductosTable extends Migration
             $table->string('pro_nombre')->unique();
             $table->string('pro_descripcion');
             $table->string('pro_codigo')->unique();
-            $table->integer('tipo_id');
+            $table->integer('tipo_id')->unsigned();
+            $table->foreign('tipo_id')->references('id')->on('tipos')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }

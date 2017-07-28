@@ -22,6 +22,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                   <tr>
+                                    <th>Cliente</th>
                                     <th>Nombre de la Ferreteria</th>
                                     <th>Direccion de la Ferreteria</th>
                                     <th>Zona</th>
@@ -32,6 +33,7 @@
                                 <tbody>
                                     @foreach ($clientes as $id => $cliente)
                                     <tr>
+                                        <td>{{$cliente['user']['appaterno']}} {{$cliente['user']['apmaterno']}}, {{$cliente['user']['nombre']}}</td>
                                         <td>{{$cliente['cli_nombre']}}</td>
                                         <td>{{$cliente['cli_direccion']}}</td>
                                         <td>{{$cliente['cli_zona']}}</td>

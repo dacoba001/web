@@ -28,14 +28,44 @@ class ClientesController extends Controller
             ]);
         }
     }
+    protected function validatorUser(array $data)
+    {
+        return Validator::make($data, [
+            'nombre' => 'required|max:255',
+            'nombredeusuario' => 'required|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
+    }
     public function index()
     {
         $clientes = json_decode(file_get_contents('http://localhost:8001/clientes'), true);
         return view('cliente.clienteslista',['clientes' => $clientes]);
     }
-    public function create()
+    public function create($user_id = null)
     {
-        return view("cliente.clientes");
+        $users = json_decode(file_get_contents('http://localhost:8001/clientes/users'), true);
+        return view("cliente.clientes",['users' => $users, 'user_id' => $user_id]);
+    }
+    public function users()
+    {
+        return view("cliente.usuarios");
+    }
+    public function usersCreate(Request $request)
+    {
+        $validator = $this->validatorUser($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        $usuario = $this->file_post_contents('http://localhost:8001/clientes/users', 'POST', $request->all());
+        $usuario = json_decode($usuario);
+        return redirect()->action(
+            'ClientesController@create', ['user_id' => $usuario->id]
+        );
+        //return view('cliente.clientes',['users' => $users, 'user_id' => $usuario->id]);
     }
     public function store(Request $request)
     {
