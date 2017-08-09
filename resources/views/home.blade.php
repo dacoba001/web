@@ -35,12 +35,13 @@
                                         <td>{{$producto['pro_nombre']}}</td>
                                         <td>{{$producto['tipo']['tip_nombre']}}</td>
                                         <td>{{$producto['pro_descripcion']}}</td>
-                                        <td>{{$producto['stocks']['stk_precio']}}</td>
+                                        <td>{{$producto['stocks']['stk_precio']}} Bs.</td>
                                         @if ( !Auth::guest())
                                             <form class="form-horizontal" role="form" method="POST" action="{{ url('carritos')}}">
                                                 {{ csrf_field() }}
                                                 <td><input name="car_cantidad" type="number" class="form-control" placeholder="cantidad del producto"></td>
                                                 <td>
+                                                    <input type="hidden" name="car_precio" value="{{ $producto['stocks']['stk_precio'] }}">
                                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                                     <input type="hidden" name="producto_id" value="{{ $producto['id'] }}">
                                                     <button class="btn btn-success" type="submit">

@@ -8,8 +8,8 @@
     <!-- Fonts -->
     <link href="{{URL::asset('assets/css/font-awesome.min.css')}}" rel="stylesheet">
     <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous"-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
-
+    {{--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">--}}
+    <link href="{{URL::asset('assets/css/latostyle2.css')}}" rel="stylesheet">
 
     <!-- Styles -->
     <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"-->
@@ -91,10 +91,17 @@
                                     </span>
                                 </a>
                             </li>
-                         @endif
-                         @if ( Auth::user()->tipo_cuenta == 'Secretaria')
+                            <li><a href="{{ url('/pedidos') }}">Pedidos</a></li>
+                            <li><a href="{{ url('/importaciones') }}">Importaciones</a></li>
+                        @endif
+                        @if ( Auth::user()->tipo_cuenta == 'Secretaria')
                             <li><a href="{{ url('/clientes') }}">Clientes</a></li>
-                         @endif
+                            <li><a href="{{ url('/pedidos') }}">Pedidos</a></li>
+                        @endif
+                        @if ( Auth::user()->tipo_cuenta == 'Cliente')
+                            <li><a href="{{ url('/pedidos') }}">Pedidos</a></li>
+                        @endif
+
                     @endif
                 </ul>
 
@@ -103,7 +110,7 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
-{{--                        <li><a href="{{ url('/register') }}">Register</a></li>--}}
+                        <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

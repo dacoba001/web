@@ -71,9 +71,15 @@ class TiposController extends Controller
     }
     public function destroy($id)
     {
-        echo $this->delete_json('http://localhost:8002/tipos/'.$id, 'DELETE');
+        $variable = $this->delete_json('http://localhost:8002/tipos/'.$id, 'DELETE');
         $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
+        if($variable == '"nodelete"'){
+            $tipo = json_decode(file_get_contents('http://localhost:8002/tipos/'.$id), true);
+            $error = "El tipo \"".$tipo['tip_nombre']."\" no se puede eliminar";
+            return view('tipo.tiposlista',['tipos' => $tipos, 'error' => $error]);
+        }
         return view('tipo.tiposlista',['tipos' => $tipos]);
+
     }
     function file_post_contents($url, $method, $data, $username = null, $password = null)
     {

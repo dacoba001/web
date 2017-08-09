@@ -36,5 +36,8 @@ Route::resource('stocks', 'StocksController');
 Route::resource('carritos', 'CarritosController');
 Route::get('/carritos/productos/{users}', 'CarritosController@productos');
 
+Route::resource('pedidos', 'PedidosController');
+Route::get('/pedidos/users/{users}', 'PedidosController@getPedidos');
+
 Route::auth();
 Route::get('/home', 'HomeController@index');

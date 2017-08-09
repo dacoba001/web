@@ -32,9 +32,9 @@
                                         <td>{{$producto['producto']['pro_nombre']}}</td>
                                         <td>{{$producto['producto']['tipo']['tip_nombre']}}</td>
                                         <td>{{$producto['producto']['pro_descripcion']}}</td>
-                                        <td class="text-right">{{$producto['producto']['stocks']['stk_precio']}} Bs.</td>
+                                        <td class="text-right">{{$producto['car_precio']}} Bs.</td>
                                         <td class="text-center">{{$producto['car_cantidad']}}</td>
-                                        <td class="text-right">{{$producto['producto']['stocks']['stk_precio'] * $producto['car_cantidad']}} Bs.</td>
+                                        <td class="text-right">{{$producto['car_precio'] * $producto['car_cantidad']}} Bs.</td>
                                         <td>
                                             <form action="{{ url('carritos/')}}/{{$producto['id']}}" method="post">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -58,10 +58,36 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="/usuarios" class="btn pull-right btn-success margin-left-md">Realizar Pedido</a>
-                            <a href="/home" class="btn pull-right btn-primary">Productos</a>
                         </div>
                     </div>
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('pedidos')}}">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group{{ $errors->has('cliente_id') ? ' has-error' : '' }}">
+                                    <label for="cliente_id" class="control-label">Seleccione una ferreteria:</label>
+                                    <select name="cliente_id" class="form-control">
+                                        @foreach ( $listadecliente as $cliente )
+                                            <option value="{{$cliente['id']}}" @if (old('cliente_id') == $cliente['id']) selected @endif @if(isset($_REQUEST['cliente_id'])) @if ($_REQUEST['cliente_id'] == $cliente['id']) selected @endif @endif>{{$cliente['cli_nombre']}} (Zona {{$cliente['cli_zona']}}) - {{$cliente['cli_direccion']}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('cliente_id'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('cliente_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <td>
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <button class="btn pull-right btn-success margin-left-md" type="submit">
+                                <i class="fa fa-cart-plus fa-1x"></i>
+                                Realizar Pedido
+                            </button>
+                        </td>
+                    </form>
+                    <a href="/home" class="btn pull-right btn-primary">Productos</a>
                 </div>
             </div>
         </div>
