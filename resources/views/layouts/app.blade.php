@@ -84,15 +84,22 @@
                             <li><a href="{{ url('/clientes') }}">Clientes</a></li>
                             <li><a href="{{ url('/tipos') }}">Tipos</a></li>
                             <li><a href="{{ url('/productos') }}">Productos</a></li>
-                            <li>
-                                <a href="{{ url('/stocks') }}">Stock
-                                    <span class="pull-right">
-                                    &nbsp;&nbsp;&nbsp;<span class="label label-alert">5</span>&nbsp;&nbsp;
-                                    </span>
-                                </a>
+                            @if ( Session::get('variable') > 0)
+                                <li>
+                                    <a href="{{ url('/stocks/min') }}">Stock
+                                        @if ( Session::get('variable') > 0)
+                                            <span class="pull-right">
+                                            &nbsp;&nbsp;&nbsp;<span class="label label-alert">{{ Session::get('variable') }}</span>&nbsp;&nbsp;
+                                            </span>
+                                        @endif
+                                    </a>
+                                </li>
+                            @else
+                                <li><a href="{{ url('/stocks') }}">Stock</a>
                             </li>
+                            @endif
                             <li><a href="{{ url('/pedidos') }}">Pedidos</a></li>
-                            <li><a href="{{ url('/importaciones') }}">Importaciones</a></li>
+                            <li><a href="{{ url('/importacions/create') }}">Importaciones</a></li>
                         @endif
                         @if ( Auth::user()->tipo_cuenta == 'Secretaria')
                             <li><a href="{{ url('/clientes') }}">Clientes</a></li>

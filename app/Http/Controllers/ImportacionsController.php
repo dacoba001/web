@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use Session;
 
-class PedidosController extends Controller
+class ImportacionsController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -19,11 +22,8 @@ class PedidosController extends Controller
     }
     public function index()
     {
-
-        $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos'), true);
-        if(Auth::user()->tipo_cuenta == 'Cliente')
-            $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos/cliente/'. Auth::user()->id), true);
-        return view('pedido.pedidoslista',['pedidos' => $pedidos]);
+        $importaciones = json_decode(file_get_contents('http://localhost:8003/importacions/'), true);
+        return view('importacion.importacionslista',['productos' => $importaciones]);
     }
 
     /**
@@ -33,7 +33,8 @@ class PedidosController extends Controller
      */
     public function create()
     {
-        //
+        $productos = json_decode(file_get_contents('http://localhost:8002/productos/'), true);
+        return view('importacion.productoslista',['productos' => $productos]);
     }
 
     /**
@@ -44,10 +45,10 @@ class PedidosController extends Controller
      */
     public function store(Request $request)
     {
-        $this->file_post_contents('http://localhost:8003/pedidos', 'POST', $request->all());
-        return redirect()->action(
-            'HomeController@index'
-        );
+        $this->file_post_contents('http://localhost:8003/importacions', 'POST', $request->all());
+        $productos = json_decode(file_get_contents('http://localhost:8002/productos/'), true);
+        $mensage = "Producto añadido exitosamente";
+        return view('importacion.productoslista',['productos' => $productos, 'mensage' => $mensage]);
     }
 
     /**
@@ -58,15 +59,9 @@ class PedidosController extends Controller
      */
     public function show($id)
     {
-        $detallepedido = json_decode(file_get_contents('http://localhost:8003/pedidos/detalle/'. $id), true);
-        $pedido = json_decode(file_get_contents('http://localhost:8003/pedidos/'. $id), true);
-        return view('pedido.detalleslista',['detallepedido' => $detallepedido, 'pedido' => $pedido]);
+        //
     }
-    public function getPedidos($user_id)
-    {
-        $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos/cliente/'. $user_id), true);
-        return view('pedido.pedidoslista',['pedidos' => $pedidos]);
-    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -87,16 +82,10 @@ class PedidosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $response = $this->file_post_contents('http://localhost:8003/pedidos/validar/'.$id, 'PUT', $request->all());
-        if($response == '"Error"'){
-            $detallepedido = json_decode(file_get_contents('http://localhost:8003/pedidos/detalle/'. $id), true);
-            $pedido = json_decode(file_get_contents('http://localhost:8003/pedidos/'. $id), true);
-            return view('pedido.detalleslista',['detallepedido' => $detallepedido, 'pedido' => $pedido, 'error' => $response]);
-        }
-        $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos'), true);
-        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
-        Session::set('variable', $minstocks);
-        return view('pedido.pedidoslista',['pedidos' => $pedidos]);
+        $this->file_post_contents('http://localhost:8003/importacions/'.$id, 'PUT', $request->all());
+        $mensage = "Producto importado exitosamente";
+        $importaciones = json_decode(file_get_contents('http://localhost:8003/importacions/'), true);
+        return view('importacion.importacionslista',['productos' => $importaciones, 'mensage' => $mensage]);
     }
 
     /**
@@ -107,7 +96,10 @@ class PedidosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->delete_json('http://localhost:8003/importacions/'.$id, 'DELETE');
+        $delete = "Producto eliminado de la importacion";
+        $importaciones = json_decode(file_get_contents('http://localhost:8003/importacions/'), true);
+        return view('importacion.importacionslista',['productos' => $importaciones, 'delete' => $delete]);
     }
     function file_post_contents($url, $method, $data, $username = null, $password = null)
     {
@@ -117,6 +109,21 @@ class PedidosController extends Controller
                 'method'  => $method,
                 'header'  => 'Content-type: application/x-www-form-urlencoded',
                 'content' => $postdata
+            )
+        );
+        if($username && $password)
+        {
+            $opts['http']['header'] = ("Authorization: Basic " . base64_encode("$username:$password"));
+        }
+        $context = stream_context_create($opts);
+        return file_get_contents($url, false, $context);
+    }
+    function delete_json($url, $method, $username = null, $password = null)
+    {
+        $opts = array('http' =>
+            array(
+                'method'  => $method,
+                'header'  => 'Content-type: application/x-www-form-urlencoded'
             )
         );
         if($username && $password)

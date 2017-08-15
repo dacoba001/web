@@ -8,6 +8,7 @@ use App\Usuario;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Session;
 
 
 class UsuariosController extends Controller
@@ -15,6 +16,8 @@ class UsuariosController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        Session::set('variable', $minstocks);
     }
     /**
      * Display a listing of the resource.

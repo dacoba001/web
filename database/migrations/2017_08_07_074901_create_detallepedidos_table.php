@@ -15,7 +15,7 @@ class CreateDetallepedidosTable extends Migration
         Schema::create('detallepedidos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('ped_cantidad');
-            $table->integer('ped_precio');
+            $table->double('ped_precio');
             $table->integer('producto_id')->unsigned();
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('pedido_id')->unsigned();

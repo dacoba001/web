@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
+use Session;
 
 class CarritosController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        Session::set('variable', $minstocks);
     }
     public function index()
     {
@@ -21,6 +24,10 @@ class CarritosController extends Controller
     {
         $carrito = json_decode(file_get_contents('http://localhost:8003/carritos/cliente/'. Auth::user()->id), true);
         $listadecliente = json_decode(file_get_contents('http://localhost:8001/clientes/users/'. Auth::user()->id), true);
+        if ( Auth::user()->tipo_cuenta == 'Administrador' or Auth::user()->tipo_cuenta == 'Secretaria')
+        {
+            $listadecliente = json_decode(file_get_contents('http://localhost:8001/clientes'), true);
+        }
         return view('carrito.productos_cliente',['productos' => $carrito, 'listadecliente' => $listadecliente]);
     }
     public function create()

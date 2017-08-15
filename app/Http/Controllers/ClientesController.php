@@ -6,12 +6,15 @@ use App\Cliente;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Session;
 
 class ClientesController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        Session::set('variable', $minstocks);
     }
 
     protected function validator($option, array $data)

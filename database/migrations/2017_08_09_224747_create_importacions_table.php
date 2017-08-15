@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarritosTable extends Migration
+class CreateImportacionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,13 @@ class CreateCarritosTable extends Migration
      */
     public function up()
     {
-        Schema::create('carritos', function (Blueprint $table) {
+        Schema::create('importacions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('car_cantidad');
-            $table->double('car_precio');
+            $table->dateTime('imp_fecha');
+            $table->integer('imp_cantidad');
+            $table->string('imp_estado');
             $table->integer('producto_id')->unsigned();
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('restrict')->onUpdate('cascade');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateCarritosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('carritos');
+        Schema::drop('importacions');
     }
 }

@@ -99,8 +99,8 @@
                             <div class="col-md-6">
                                 <select id="tipo_cuenta" name="tipo_cuenta" class="form-control">
                                     <option value="Administrador">Administrador</option>
-                                    <option value ="Secretaria">Secretaria</option>
-                                    <option value="Cliente">Cliente</option>
+                                    <option value="Administrador">Tecnico Agronomo</option>
+                                    <option value="Administrador">Productor</option>
                                 </select>
                             </div>
                         </div>
