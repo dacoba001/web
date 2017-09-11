@@ -8,6 +8,6 @@ class Tipo extends Model
 {
     protected $table = 'tipos';
 	protected $fillable = [
-        'tip_nombre',
+        'tip_nombre','tip_image',
     ];
 }

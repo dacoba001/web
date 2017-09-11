@@ -4,9 +4,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <h1>Administrar Pedidos</h1>
+                    <h1>Reportes</h1>
                     <ul class="nav nav-tabs">
-                        <li><a href="/pedidos">Morstar Pedidos</a></li>
+                        <li><a href="{{ url('reportes/importacions')}}">Reporte de Importaciones</a></li>
+                        <li><a href="{{ url('reportes/pedidos')}}">Reporte de Pedidos</a></li>
                         <li class="active"><a>Detalle del pedido</a></li>
                     </ul>
                     <br>
@@ -35,13 +36,13 @@
                                                 <tbody>
                                                 <?php $total = 0 ?>
                                                 @foreach ($detallepedido as $id => $producto)
-                                                    <tr @if ($producto['producto']['stocks']['stk_cantidad'] < $producto['ped_cantidad'] and ($pedido['ped_estado'] != 'validado')) style="background: rgba(255, 0, 0, 0.05);" @endif>
+                                                    <tr @if ($producto['producto']['stocks']['stk_cantidad'] < $producto['ped_cantidad']  and ($pedido['ped_estado'] != 'validado')) style="background: rgba(255, 0, 0, 0.05);" @endif>
                                                         <td>{{$producto['producto']['pro_nombre']}}</td>
                                                         <td>{{$producto['producto']['tipo']['tip_nombre']}}</td>
                                                         <td>{{$producto['producto']['pro_descripcion']}}</td>
                                                         <td class="text-right">{{$producto['ped_precio']}} Bs.</td>
                                                         <td class="text-center">{{$producto['ped_cantidad']}}
-                                                            @if (($producto['producto']['stocks']['stk_cantidad'] < $producto['ped_cantidad']) and ($pedido['ped_estado'] != 'validado'))
+                                                            @if ($producto['producto']['stocks']['stk_cantidad'] < $producto['ped_cantidad']  and ($pedido['ped_estado'] != 'validado'))
                                                                 <i class="fa fa-exclamation-circle" aria-hidden="true" style="color:#af1b1b;" title="Stock: {{ $producto['producto']['stocks']['stk_cantidad'] }}"></i>
                                                             @endif
                                                         </td>
@@ -79,7 +80,7 @@
                                                     </form>
                                                 @endif
                                             @endif
-                                            <a href="/pedidos" class="btn pull-right btn-danger">Atras</a>
+                                            <a href="/reportes/pedidos" class="btn pull-right btn-danger">Atras</a>
                                         </div>
                                     </div>
                                 </div>

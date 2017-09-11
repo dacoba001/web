@@ -133,4 +133,10 @@ class ImportacionsController extends Controller
         $context = stream_context_create($opts);
         return file_get_contents($url, false, $context);
     }
+
+    public function reporteImportacions()
+    {
+        $importaciones = json_decode(file_get_contents('http://localhost:8003/importacions/'), true);
+        return view('reporte.importacions',['productos' => $importaciones]);
+    }
 }

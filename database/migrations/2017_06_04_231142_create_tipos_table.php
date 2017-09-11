@@ -15,6 +15,7 @@ class CreateTiposTable extends Migration
         Schema::create('tipos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tip_nombre')->unique();
+            $table->string('tip_image');
             $table->timestamps();
         });
     }

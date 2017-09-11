@@ -25,8 +25,8 @@
                                   <tr>
                                     <th>Producto</th>
                                     <th>Cantidad</th>
-                                    <th>Precio</th>
                                     <th>Cantidad Minima</th>
+                                    <th>Precio</th>
                                     <th class="text-center" style="width: 1px;">Opciones</th>
                                   </tr>
                                 </thead>
@@ -35,8 +35,8 @@
                                     <tr>
                                         <td>{{$stock['producto']['tipo']['tip_nombre']}}, {{$stock['producto']['pro_nombre']}}</td>
                                         <td>{{$stock['stk_cantidad']}}</td>
-                                        <td>{{$stock['stk_precio']}}</td>
                                         <td>{{$stock['stk_cantmin']}}</td>
+                                        <td>{{$stock['stk_precio']}}</td>
                                         <td>
                                             <a href="{{ url('stocks/')}}/{{$stock['id']}}" class="btn btn-success">Incrementar</a>
                                         </td>

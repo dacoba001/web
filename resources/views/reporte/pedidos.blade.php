@@ -4,10 +4,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <h1>Administrar Pedidos</h1>
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="/pedidos">Morstar Pedidos</a></li>
-                    </ul>
+                <h1>Reportes</h1>
+                <ul class="nav nav-tabs">
+                    <li><a href="{{ url('reportes/importacions')}}">Reporte de Importaciones</a></li>
+                    <li class="active"><a href="{{ url('reportes/pedidos')}}">Reporte de Pedidos</a></li>
+                </ul>
                 <br>
                 <div class="row">
             <div class="col-lg-12">
@@ -36,7 +37,7 @@
                                         <td>{{$pedido['user']['appaterno']}} {{$pedido['user']['apmaterno']}}, {{$pedido['user']['nombre']}}</td>
                                         <td>{{$pedido['cliente']['cli_nombre']}} (Zona {{$pedido['cliente']['cli_zona']}})</td>
                                         <td>
-                                            <a href="{{ url('pedidos/')}}/{{$pedido['id']}}" class="btn btn-primary">Detalles</a>
+                                            <a href="{{ url('reportes/pedidosdetalle/')}}/{{$pedido['id']}}" class="btn btn-primary btn-xs">Detalles</a>
                                         </td>
                                     </tr>
                                     @endforeach

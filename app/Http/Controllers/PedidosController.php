@@ -19,7 +19,6 @@ class PedidosController extends Controller
     }
     public function index()
     {
-
         $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos'), true);
         if(Auth::user()->tipo_cuenta == 'Cliente')
             $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos/cliente/'. Auth::user()->id), true);
@@ -125,5 +124,18 @@ class PedidosController extends Controller
         }
         $context = stream_context_create($opts);
         return file_get_contents($url, false, $context);
+    }
+    public function reportePedidos()
+    {
+        $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos'), true);
+//        if(Auth::user()->tipo_cuenta == 'Cliente')
+//            $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos/cliente/'. Auth::user()->id), true);
+        return view('reporte.pedidos',['pedidos' => $pedidos]);
+    }
+    public function reportePedidosDetalle($id)
+    {
+        $detallepedido = json_decode(file_get_contents('http://localhost:8003/pedidos/detalle/'. $id), true);
+        $pedido = json_decode(file_get_contents('http://localhost:8003/pedidos/'. $id), true);
+        return view('reporte.pedidodetalles',['detallepedido' => $detallepedido, 'pedido' => $pedido]);
     }
 }

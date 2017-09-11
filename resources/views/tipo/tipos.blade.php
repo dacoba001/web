@@ -32,6 +32,15 @@
                                                 </span>
                                             @endif
                                         </div>
+                                        <div class="form-group{{ $errors->has('tip_image') ? ' has-error' : '' }}">
+                                            <label for="tip_image" class="control-label">Imagen del Tipo</label>
+                                            <input id="tip_image" type="file" class="form-control" name="tip_image" value="{{ old('tip_image') }}">
+                                            @if ($errors->has('tip_image'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('tip_image') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn pull-right btn-success margin-left-md">Registrar Tipo</button>

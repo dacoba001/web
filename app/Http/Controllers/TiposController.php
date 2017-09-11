@@ -47,6 +47,14 @@ class TiposController extends Controller
                 $request, $validator
             );
         }
+        $file = $request->file('tip_image');
+        $destinationPath = "/var/www/html/proyecto/jonathan/web/public/assets/images";
+        if ($request->hasFile('tip_image')) {
+            if ($request->file('tip_image')->isValid()) {
+                $file->move(public_path().'/images/asdasd.jpg');
+                //$request->file('tip_image')->move($destinationPath);
+            }
+        }
         $this->file_post_contents('http://localhost:8002/tipos', 'POST', $request->all());
         $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
         return view('tipo.tiposlista',['tipos' => $tipos]);

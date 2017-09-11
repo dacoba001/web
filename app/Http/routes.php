@@ -42,5 +42,9 @@ Route::get('/pedidos/users/{users}', 'PedidosController@getPedidos');
 
 Route::resource('importacions', 'ImportacionsController');
 
+Route::resource('reportes/importacions', 'ImportacionsController@reporteImportacions');
+Route::resource('reportes/pedidos', 'PedidosController@reportePedidos');
+Route::get('reportes/pedidosdetalle/{pedido}', 'PedidosController@reportePedidosDetalle');
+
 Route::auth();
 Route::get('/home', 'HomeController@index');
