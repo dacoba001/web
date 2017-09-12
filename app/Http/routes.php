@@ -48,3 +48,5 @@ Route::get('reportes/pedidosdetalle/{pedido}', 'PedidosController@reportePedidos
 
 Route::auth();
 Route::get('/home', 'HomeController@index');
+Route::get('/home/productos/{tipos}', 'HomeController@getProductos');
+Route::get('/home/tipos', 'HomeController@getTipos');

@@ -77,7 +77,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">ProductosWeb</a></li>
+                    <li><a href="{{ url('/home/tipos') }}">ProductosWeb</a></li>
                      @if ( !Auth::guest())
                         @if ( Auth::user()->tipo_cuenta == 'Administrador')
                             <li><a href="{{ url('/usuarios') }}">Usuarios</a></li>
