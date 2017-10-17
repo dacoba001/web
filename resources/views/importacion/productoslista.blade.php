@@ -38,19 +38,19 @@
                                                         <td>{{$producto['pro_nombre']}}</td>
                                                         <td>{{$producto['tipo']['tip_nombre']}}</td>
                                                         <td>{{$producto['pro_descripcion']}}</td>
-                                                        <td class="text-center">{{$producto['stocks']['stk_cantidad']}}
-                                                            @if ($producto['stocks']['stk_cantidad'] < $producto['stocks']['stk_cantmin'])
-                                                                <i class="fa fa-exclamation-circle" aria-hidden="true" style="color:#af1b1b;" title="Cantidad minima: {{ $producto['stocks']['stk_cantmin'] }}"></i>
+                                                        <td class="text-center" @if ($producto['stocks']['stk_cantidad'] <= $producto['stocks']['stk_cantmin']) title="Cantidad minima: {{ $producto['stocks']['stk_cantmin'] }}" @endif>{{$producto['stocks']['stk_cantidad']}}
+                                                            @if ($producto['stocks']['stk_cantidad'] <= $producto['stocks']['stk_cantmin'])
+                                                                <i class="fa fa-exclamation-circle" aria-hidden="true" style="color:#af1b1b;cursor: pointer;" ></i>
                                                             @endif
                                                         </td>
                                                         @if ( !Auth::guest())
                                                             <form class="form-horizontal" role="form" method="POST" action="{{ url('importacions')}}">
                                                                 {{ csrf_field() }}
-                                                                <td><input name="imp_cantidad" type="number" class="form-control" placeholder="cantidad del producto"></td>
+                                                                <td><input name="imp_cantidad" type="number" class="form-control" placeholder="cantidad del producto" min="1"></td>
                                                                 <td>
                                                                     <input type="hidden" name="producto_id" value="{{ $producto['id'] }}">
                                                                     <button class="btn btn-success" type="submit">
-                                                                        <i class="fa fa-product-hunt fa-1x"></i>
+                                                                        <i class="fa fa-caret-square-o-up fa-1x"></i>
                                                                         Importar Producto
                                                                     </button>
                                                                 </td>

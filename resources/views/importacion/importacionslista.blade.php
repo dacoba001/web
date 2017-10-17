@@ -22,45 +22,24 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                 <tr>
+                                                    <th>Fecha</th>
                                                     <th>Nombre</th>
                                                     <th>Tipo</th>
                                                     <th>Descripcion del Producto</th>
                                                     <th class="text-center">Estado</th>
-                                                    @if ( !Auth::guest())
-                                                        <th class="text-center">Cantidad</th>
-                                                        <th class="text-center" style="width: 1px;">Opcion</th>
-                                                    @endif
+                                                    <th class="text-center">Cantidad</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @foreach ($productos as $id => $producto)
-                                                    @if ($producto['imp_estado'] == "pendiente")
-                                                        <tr>
-                                                            <td>{{$producto['producto']['pro_nombre']}}</td>
-                                                            <td>{{$producto['producto']['tipo']['tip_nombre']}}</td>
-                                                            <td>{{$producto['producto']['pro_descripcion']}}</td>
-                                                            <td class="text-center">{{$producto['imp_estado']}}</td>
-                                                            <td class="text-center">{{$producto['imp_cantidad']}}</td>
-                                                            <td>
-                                                                <form action="{{ url('importacions/')}}/{{$producto['id']}}" method="POST">
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                    <input type="hidden" name="_method" value="PUT">
-                                                                    <button class="btn btn-success btn-xs" type="submit">
-                                                                        <i class="fa fa-cart-arrow-down"></i>
-                                                                        Importar
-                                                                    </button>
-                                                                </form>
-                                                                <form action="{{ url('importacions/')}}/{{$producto['id']}}" method="POST">
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                    <input type="hidden" name="_method" value="DELETE" >
-                                                                    <button class="btn btn-danger btn-xs" type="submit">
-                                                                        <i class="fa fa-cart-arrow-down"></i>
-                                                                        Quitar
-                                                                    </button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    @endif
+                                                    <tr>
+                                                        <td>{{$producto['imp_fecha']}}</td>
+                                                        <td>{{$producto['producto']['pro_nombre']}}</td>
+                                                        <td>{{$producto['producto']['tipo']['tip_nombre']}}</td>
+                                                        <td>{{$producto['producto']['pro_descripcion']}}</td>
+                                                        <td class="text-center">{{$producto['imp_estado']}}</td>
+                                                        <td class="text-center">{{$producto['imp_cantidad']}}</td>
+                                                    </tr>
                                                 @endforeach
                                                 </tbody>
                                             </table>

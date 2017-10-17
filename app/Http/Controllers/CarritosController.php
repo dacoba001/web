@@ -37,9 +37,18 @@ class CarritosController extends Controller
     public function store(Request $request)
     {
         $this->file_post_contents('http://localhost:8003/carritos', 'POST', $request->all());
-        return redirect()->action(
-            'HomeController@index'
-        );
+//        return redirect()->action(
+//            'HomeController@getTipos'
+//        );
+        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        Session::set('variable', $minstocks);
+        $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
+        if (Auth::guest()){
+            return view('hometipos',['tipos' => $tipos,'carr_cant' => 0]);
+        }
+        $carrito = json_decode(file_get_contents('http://localhost:8002/carritos/cliente/'. Auth::user()->id), true);
+        $productos = json_decode(file_get_contents('http://localhost:8002/productos/carrito/'. Auth::user()->id), true);
+        return view('hometipos',['tipos' => $tipos, 'productos' => $productos,'carr_cant' => count($carrito)]);
     }
     public function show($id)
     {

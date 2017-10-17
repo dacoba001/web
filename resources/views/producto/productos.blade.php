@@ -19,7 +19,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form class="form-horizontal" role="form" method="POST" action="{{ url('productos')}}">
+                                    <form class="form-horizontal" role="form" method="POST" action="{{ url('productos')}}" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                         <div class="row">
                                             <div class="col-md-12">
@@ -34,6 +34,17 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="form-group{{ $errors->has('pro_image_file') ? ' has-error' : '' }}">
+                                            <label for="pro_image_file" class="control-label">Imagen del Prudcto</label>
+                                            <input id="pro_image_file" type="file" class="form-control" name="pro_image_file" value="{{ old('pro_image_file') }}">
+                                            @if ($errors->has('pro_image_file'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('pro_image_file') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        
                                         <div class="form-group{{ $errors->has('pro_descripcion') ? ' has-error' : '' }}">
                                             <label for="pro_descripcion" class="control-label">Descripcion del Producto</label>
                                             <textarea name="pro_descripcion" class="form-control" rows="3">{{ old('pro_descripcion') }}</textarea>

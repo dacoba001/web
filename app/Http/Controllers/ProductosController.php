@@ -6,6 +6,8 @@ use App\Tipo;
 use App\Producto;
 use Validator;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use Session;
 
@@ -46,12 +48,20 @@ class ProductosController extends Controller
     }
     public function store(Request $request)
     {
+        $fileName="";
+        if(Input::hasfile('pro_image_file')){
+            $file = Input::file('pro_image_file');
+            $fileName = rand(11111, 99999) . '_' .time(). '_' .$file->getClientOriginalName();
+            $file->move('assets/images/productos', $fileName);
+        }
+        $request['pro_image'] = $fileName;
         $validator = $this->validator('create', $request->all());
         if ($validator->fails()) {
             $this->throwValidationException(
                 $request, $validator
             );
         }
+        print $request;
         $this->file_post_contents('http://localhost:8002/productos', 'POST', $request->all());
         $productos = json_decode(file_get_contents('http://localhost:8002/productos'), true);
         return view('producto.productoslista',['productos' => $productos]);

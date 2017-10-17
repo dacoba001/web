@@ -19,23 +19,38 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
+                            <form class="form-inline" method="POST" action="{{ url('reportes/pedidos')}}" style="text-align: right;">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label for="start_date">Reporte Del: </label>
+                                    <input type="date" class="form-control" name="start_date" id="start_date" value="{{ $start_date or old('start_date')}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="end_date"> Al: </label>
+                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date or old('end_date')}}">
+                                </div>
+                                <button type="submit" class="btn btn-default">Enviar</button>
+                            </form>
                             <table class="table table-bordered">
                                 <thead>
                                   <tr>
-                                    <th>Fecah del pedido</th>
-                                    <th>Estado</th>
+                                    <th class="text-center">Nº</th>
+                                    <th class="text-center">Fecha</th>
                                     <th>Usuario</th>
                                     <th>Cliente</th>
+                                    <th>Estado</th>
                                     <th class="text-center" style="width: 1px;">Detalle</th>
                                   </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $num=1?>
                                     @foreach ($pedidos as $id => $pedido)
                                     <tr>
-                                        <td>{{$pedido['ped_fecha_ini']}}</td>
-                                        <td>{{$pedido['ped_estado']}}</td>
+                                        <td class="text-center"><?php echo $num; $num++; ?></td>
+                                        <td class="text-center">{{date('h:i - d/m/Y', strtotime($pedido['ped_fecha_ini']))}}</td>
                                         <td>{{$pedido['user']['appaterno']}} {{$pedido['user']['apmaterno']}}, {{$pedido['user']['nombre']}}</td>
                                         <td>{{$pedido['cliente']['cli_nombre']}} (Zona {{$pedido['cliente']['cli_zona']}})</td>
+                                        <td>{{$pedido['ped_estado']}}</td>
                                         <td>
                                             <a href="{{ url('reportes/pedidosdetalle/')}}/{{$pedido['id']}}" class="btn btn-primary btn-xs">Detalles</a>
                                         </td>

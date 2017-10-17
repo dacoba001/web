@@ -36,16 +36,12 @@
                                                 <tbody>
                                                 <?php $total = 0 ?>
                                                 @foreach ($detallepedido as $id => $producto)
-                                                    <tr @if ($producto['producto']['stocks']['stk_cantidad'] < $producto['ped_cantidad']  and ($pedido['ped_estado'] != 'validado')) style="background: rgba(255, 0, 0, 0.05);" @endif>
+                                                    <tr>
                                                         <td>{{$producto['producto']['pro_nombre']}}</td>
                                                         <td>{{$producto['producto']['tipo']['tip_nombre']}}</td>
                                                         <td>{{$producto['producto']['pro_descripcion']}}</td>
                                                         <td class="text-right">{{$producto['ped_precio']}} Bs.</td>
-                                                        <td class="text-center">{{$producto['ped_cantidad']}}
-                                                            @if ($producto['producto']['stocks']['stk_cantidad'] < $producto['ped_cantidad']  and ($pedido['ped_estado'] != 'validado'))
-                                                                <i class="fa fa-exclamation-circle" aria-hidden="true" style="color:#af1b1b;" title="Stock: {{ $producto['producto']['stocks']['stk_cantidad'] }}"></i>
-                                                            @endif
-                                                        </td>
+                                                        <td class="text-center">{{$producto['ped_cantidad']}}</td>
                                                         <td class="text-right">{{$producto['ped_precio'] * $producto['ped_cantidad']}} Bs.</td>
                                                     </tr>
                                                     <?php $total += $producto['ped_precio'] * $producto['ped_cantidad'] ?>
@@ -64,21 +60,6 @@
                                             <div class="alert alert-danger">
                                                 <strong>Stock no suficiente!</strong> No se puede realizar la validacion.
                                             </div>
-                                            @endif
-                                            @if ( Auth::user()->tipo_cuenta == 'Administrador')
-                                                @if ( $pedido['ped_estado'] == 'pendiente')
-                                                    <form class="form-horizontal" role="form" method="POST">
-                                                        <input type="hidden" name="_method" value="PUT">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        {{ csrf_field() }}
-                                                        <td>
-                                                            <button class="btn pull-right btn-success margin-left-md" type="submit">
-                                                                <i class="fa fa-cart-plus fa-1x"></i>
-                                                                Validar Pedido
-                                                            </button>
-                                                        </td>
-                                                    </form>
-                                                @endif
                                             @endif
                                             <a href="/reportes/pedidos" class="btn pull-right btn-danger">Atras</a>
                                         </div>

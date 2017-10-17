@@ -5,12 +5,11 @@
     div.gallery {
         margin: 5px;
         border: 1px solid #ccc;
-        float: left;
-        width: 280px;
     }
 
     div.gallery:hover {
-        border: 1px solid #777;
+        border: 1px solid #A94442;
+        color: #A94442;
     }
 
     div.gallery img {
@@ -21,6 +20,7 @@
     div.desc {
         padding: 15px;
         text-align: center;
+        font-size: 22px;
     }
 </style>
 <div class="container">
@@ -37,16 +37,18 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-12">
-                            @foreach ($tipos as $tipo)
+                        @foreach ($tipos as $tipo)
+                            <div class="col-lg-4 col-md-6 col-xs-12">
                                 <div class="gallery">
                                     <a href="{{ url('home/productos')}}/{{$tipo['id']}}">
                                         <img src="{{URL::asset('assets/images/tipos')}}/{{$tipo['tip_image']}}" alt="{{$tipo['tip_nombre']}}" width="500" height="400">
                                     </a>
-                                    <div class="desc">{{$tipo['tip_nombre']}}</div>
+                                    <div class="desc">{{$tipo['tip_nombre']}}
+                                    </div>
+
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

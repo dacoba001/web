@@ -42,8 +42,10 @@ Route::get('/pedidos/users/{users}', 'PedidosController@getPedidos');
 
 Route::resource('importacions', 'ImportacionsController');
 
-Route::resource('reportes/importacions', 'ImportacionsController@reporteImportacions');
-Route::resource('reportes/pedidos', 'PedidosController@reportePedidos');
+Route::get('reportes/importacions', 'ImportacionsController@reporteImportacions');
+Route::post('reportes/importacions', 'ImportacionsController@reporteImportacions');
+Route::get('reportes/pedidos', 'PedidosController@reportePedidos');
+Route::post('reportes/pedidos', 'PedidosController@reportePedidos');
 Route::get('reportes/pedidosdetalle/{pedido}', 'PedidosController@reportePedidosDetalle');
 
 Route::auth();

@@ -30,8 +30,13 @@ class HomeController extends Controller
             return view('home',['productos' => $productos,'carr_cant' => 0]);
         }
         $carrito = json_decode(file_get_contents('http://localhost:8002/carritos/cliente/'. Auth::user()->id), true);
-        $productos = json_decode(file_get_contents('http://localhost:8002/productos/carrito/'. Auth::user()->id), true);
-        return view('home',['productos' => $productos,'carr_cant' => count($carrito)]);
+        $items = [];
+        foreach ($carrito as $item) {
+            $items[] = $item['producto_id'];
+        }
+//        $productos = json_decode(file_get_contents('http://localhost:8002/productos/carrito/'. Auth::user()->id), true);
+        $productos = json_decode(file_get_contents('http://localhost:8002/productos/tipos/'.$tipo_id), true);
+        return view('home',['productos' => $productos,'carr_cant' => count($carrito), 'items' => $items]);
     }
     public function getTipos()
     {

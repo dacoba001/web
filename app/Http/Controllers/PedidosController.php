@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
+use Carbon\Carbon;
 use Session;
 
 class PedidosController extends Controller
@@ -45,7 +46,7 @@ class PedidosController extends Controller
     {
         $this->file_post_contents('http://localhost:8003/pedidos', 'POST', $request->all());
         return redirect()->action(
-            'HomeController@index'
+            'HomeController@getTipos'
         );
     }
 
@@ -108,6 +109,22 @@ class PedidosController extends Controller
     {
         //
     }
+    public function reportePedidos(Request $request)
+    {
+        if($request['start_date']){
+            $start_date = $request['start_date'];
+            $end_date = $request['end_date'];
+        }else{
+            $start_date = new Carbon('first day of this month');
+            $start_date = $start_date->format("Y-m-d");
+            $end_date = new Carbon('last day of this month');
+            $end_date = $end_date->format("Y-m-d");
+            $request['start_date'] = $start_date;
+            $request['end_date'] = $end_date;
+        }
+        $pedidos = json_decode($this->file_post_contents('http://localhost:8003/pedidos/filter', 'POST', $request->all()),true);
+        return view('reporte.pedidos',['pedidos' => $pedidos, 'start_date' => $start_date, 'end_date' => $end_date]);
+    }
     function file_post_contents($url, $method, $data, $username = null, $password = null)
     {
         $postdata = http_build_query($data);
@@ -125,13 +142,7 @@ class PedidosController extends Controller
         $context = stream_context_create($opts);
         return file_get_contents($url, false, $context);
     }
-    public function reportePedidos()
-    {
-        $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos'), true);
-//        if(Auth::user()->tipo_cuenta == 'Cliente')
-//            $pedidos = json_decode(file_get_contents('http://localhost:8003/pedidos/cliente/'. Auth::user()->id), true);
-        return view('reporte.pedidos',['pedidos' => $pedidos]);
-    }
+
     public function reportePedidosDetalle($id)
     {
         $detallepedido = json_decode(file_get_contents('http://localhost:8003/pedidos/detalle/'. $id), true);

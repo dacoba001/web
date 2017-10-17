@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Session;
+use Carbon\Carbon;
 
 class ImportacionsController extends Controller
 {
@@ -48,6 +49,8 @@ class ImportacionsController extends Controller
         $this->file_post_contents('http://localhost:8003/importacions', 'POST', $request->all());
         $productos = json_decode(file_get_contents('http://localhost:8002/productos/'), true);
         $mensage = "Producto añadido exitosamente";
+        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        Session::set('variable', $minstocks);
         return view('importacion.productoslista',['productos' => $productos, 'mensage' => $mensage]);
     }
 
@@ -101,6 +104,37 @@ class ImportacionsController extends Controller
         $importaciones = json_decode(file_get_contents('http://localhost:8003/importacions/'), true);
         return view('importacion.importacionslista',['productos' => $importaciones, 'delete' => $delete]);
     }
+    public function reporteImportacions(Request $request)
+    {
+        if($request['start_date']){
+            $start_date = $request['start_date'];
+            $end_date = $request['end_date'];
+        }else{
+            $start_date = new Carbon('first day of this month');
+            $start_date = $start_date->format("Y-m-d");
+            $end_date = new Carbon('last day of this month');
+            $end_date = $end_date->format("Y-m-d");
+            $request['start_date'] = $start_date;
+            $request['end_date'] = $end_date;
+        }
+        $importaciones = json_decode($this->file_post_contents('http://localhost:8003/importacions/filter', 'POST', $request->all()),true);
+        return view('reporte.importacions',['productos' => $importaciones, 'start_date' => $start_date, 'end_date' => $end_date]);
+    }
+    public function reporteImportacionsFiter(Request $request)
+    {
+        echo $request['start_date'];
+        if(isset($request['start_date'])){
+            echo "hola";
+            $start_date = $request['start_date'];
+            $end_date = $request['end_date'];
+            $importaciones = json_decode($this->file_post_contents('http://localhost:8003/importacions/filter', 'POST', $request->all()));
+            return view('reporte.importacions',['productos' => $importaciones, 'start_date' => $start_date, 'end_date' => $end_date]);
+        }
+        $start_date = new Carbon('first day of last month');
+        $end_date = new Carbon('last day of last month');
+        $importaciones = json_decode(file_get_contents('http://localhost:8003/importacions/'), true);
+        return view('reporte.importacions',['productos' => $importaciones, 'start_date' => $start_date, 'end_date' => $end_date]);
+    }
     function file_post_contents($url, $method, $data, $username = null, $password = null)
     {
         $postdata = http_build_query($data);
@@ -132,11 +166,5 @@ class ImportacionsController extends Controller
         }
         $context = stream_context_create($opts);
         return file_get_contents($url, false, $context);
-    }
-
-    public function reporteImportacions()
-    {
-        $importaciones = json_decode(file_get_contents('http://localhost:8003/importacions/'), true);
-        return view('reporte.importacions',['productos' => $importaciones]);
     }
 }

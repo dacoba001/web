@@ -47,7 +47,7 @@ class TiposController extends Controller
         $fileName="";
         if(Input::hasfile('tip_image_file')){
             $file = Input::file('tip_image_file');
-            $fileName = $file->getClientOriginalName();
+            $fileName = rand(11111, 99999) . '_' .time(). '_' .$file->getClientOriginalName();
             $file->move('assets/images/tipos', $fileName);
         }
         $request['tip_image'] = $fileName;
