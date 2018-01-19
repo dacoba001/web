@@ -10,11 +10,52 @@
                         <li><a href="{{ url('reportes/pedidos')}}">Reporte de Pedidos</a></li>
                     </ul>
                     <br>
+                    <?php
+                        $varproductos = [];
+                        $cantidadimportados = 0;
+                        foreach ($productos as $producto){
+                            $idproducto = $producto['producto']['id'];
+                            if(!isset($varproductos[$idproducto])){
+                                $varproductos[$idproducto][0] = $producto['producto']['pro_nombre'];
+                                $varproductos[$idproducto][1] = $producto['imp_cantidad'];
+                            }else{
+                                $varproductos[$idproducto][1] += $producto['imp_cantidad'];
+                            }
+                            $cantidadimportados += $producto['imp_cantidad'];
+                        }
+                    ?>
+
+                    <div class="container">
+                        <h2>Productos mas importados</h2>
+                        <table width="100%">
+                            <?php
+                                foreach ($varproductos as $varproducto){
+                                    $varproducto[2] = 100/$cantidadimportados*$varproducto[1];
+                                    echo "<tr style='padding-bottom: 10px'>";
+                                        echo '<td width="20%" style="text-align:right; padding-right: 30px">';
+                                            echo $varproducto[0];
+                                        echo "</td>";
+                                        echo "<td>";
+                                            echo '<div class="progress" style="margin-bottom: 0px;">';
+                                            ?>
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?=$varproducto[2]?>%">
+                                                    <?=$varproducto[2]?>%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            <?php
+                                }
+                            ?>
+                        </table>
+
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Registrar Cliente
+                                    Importaciones
                                 </div>
                                 <div class="panel-body">
                                     <div class="row">

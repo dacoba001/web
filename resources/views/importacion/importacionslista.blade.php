@@ -28,6 +28,9 @@
                                                     <th>Descripcion del Producto</th>
                                                     <th class="text-center">Estado</th>
                                                     <th class="text-center">Cantidad</th>
+                                                    @if ( !Auth::guest())
+                                                        <th class="text-center" style="width: 1px;">Opcion</th>
+                                                    @endif
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -39,6 +42,26 @@
                                                         <td>{{$producto['producto']['pro_descripcion']}}</td>
                                                         <td class="text-center">{{$producto['imp_estado']}}</td>
                                                         <td class="text-center">{{$producto['imp_cantidad']}}</td>
+                                                        @if ( !Auth::guest())
+                                                            <td>
+                                                                <form action="{{ url('importacions/')}}/{{$producto['id']}}" method="POST">
+                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                    <input type="hidden" name="_method" value="PUT">
+                                                                    <button class="btn btn-success btn-xs" type="submit" @if ( $producto['imp_estado'] == "importado") style="display: none;" @endif>
+                                                                        <i class="fa fa-cart-arrow-down"></i>
+                                                                        Importar
+                                                                    </button>
+                                                                </form>
+                                                                <form action="{{ url('importacions/')}}/{{$producto['id']}}" method="POST">
+                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                    <input type="hidden" name="_method" value="DELETE" >
+                                                                    <button class="btn btn-danger btn-xs" type="submit" @if ( $producto['imp_estado'] == "importado") disabled @endif>
+                                                                        <i class="fa fa-cart-arrow-down"></i>
+                                                                        Quitar
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        @endif
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
