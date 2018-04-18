@@ -16,7 +16,7 @@ class ProductosController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        $minstocks = json_decode(file_get_contents($this->ServerTwo.'/stocks/min'), true);
         Session::set('variable', $minstocks);
     }
     protected function validator($option, array $data)
@@ -37,13 +37,13 @@ class ProductosController extends Controller
     }
     public function index()
     {
-        $productos = json_decode(file_get_contents('http://localhost:8002/productos'), true);
+        $productos = json_decode(file_get_contents($this->ServerTwo.'/productos'), true);
         return view('producto.productoslista',['productos' => $productos]);
     }
 
     public function create()
     {
-        $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
+        $tipos = json_decode(file_get_contents($this->ServerTwo.'/tipos'), true);
         return view('producto.productos',['tipos' => $tipos]);
     }
     public function store(Request $request)
@@ -61,15 +61,15 @@ class ProductosController extends Controller
                 $request, $validator
             );
         }
-        print $request;
-        $this->file_post_contents('http://localhost:8002/productos', 'POST', $request->all());
-        $productos = json_decode(file_get_contents('http://localhost:8002/productos'), true);
+//        print $request;
+        $this->file_post_contents($this->ServerTwo.'/productos', 'POST', $request->all());
+        $productos = json_decode(file_get_contents($this->ServerTwo.'/productos'), true);
         return view('producto.productoslista',['productos' => $productos]);
     }
     public function show($id)
     {
-        $producto = json_decode(file_get_contents('http://localhost:8002/productos/'.$id), true);
-        $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
+        $producto = json_decode(file_get_contents($this->ServerTwo.'/productos/'.$id), true);
+        $tipos = json_decode(file_get_contents($this->ServerTwo.'/tipos'), true);
         return view("producto.productosmod", ['tipos' => $tipos, 'producto' => $producto]);
     }
     public function edit($id)
@@ -84,14 +84,14 @@ class ProductosController extends Controller
                 $request, $validator
             );
         }
-        $this->file_post_contents('http://localhost:8002/productos/'.$id, 'PUT', $request->all());
-        $productos = json_decode(file_get_contents('http://localhost:8002/productos'), true);
+        $this->file_post_contents($this->ServerTwo.'/productos/'.$id, 'PUT', $request->all());
+        $productos = json_decode(file_get_contents($this->ServerTwo.'/productos'), true);
         return view('producto.productoslista',['productos' => $productos]);
     }
     public function destroy($id)
     {
-        $this->delete_json('http://localhost:8002/productos/'.$id, 'DELETE');
-        $productos = json_decode(file_get_contents('http://localhost:8002/productos'), true);
+        $this->delete_json($this->ServerTwo.'/productos/'.$id, 'DELETE');
+        $productos = json_decode(file_get_contents($this->ServerTwo.'/productos'), true);
         return view('producto.productoslista',['productos' => $productos]);
     }
     function file_post_contents($url, $method, $data, $username = null, $password = null)

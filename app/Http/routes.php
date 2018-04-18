@@ -39,6 +39,10 @@ Route::get('/carritos/productos/{users}', 'CarritosController@productos');
 
 Route::resource('pedidos', 'PedidosController');
 Route::get('/pedidos/users/{users}', 'PedidosController@getPedidos');
+Route::get('/pedidoss/estado/1', 'PedidosController@indexEntregados');
+Route::post('/pedidos/entregartodo', 'PedidosController@postEntregarTodo');
+Route::post('/pedidos/entregar/{detallepedido}', 'PedidosController@postEntregar');
+Route::post('/pedidos/devolver/{detallepedido}', 'PedidosController@postDevolver');
 
 Route::resource('importacions', 'ImportacionsController');
 

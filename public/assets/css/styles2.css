@@ -7,7 +7,12 @@ div, nav, footer, header, section		{ position:relative; }
 body									{ font-family:'PT Sans', sans-serif;}
 a										{ text-decoration:none; color:#DC291E; }
 img										{ border:none; }
-h1, h2, h3, h4, h5, h6					{ text-shadow:1px 1px 0 #FFF; text-rendering: optimizelegibility; font-weight:normal;}
+h1, h2, h3, h4, h5, h6
+{
+	/*text-shadow:1px 1px 0 #FFF; */
+	text-rendering: optimizelegibility;
+	font-weight:bold;
+}
 p										{ line-height: 1.4em; font-size:13px; }
 label									{ font-size:13px; }
 ::-moz-selection 						{ background: #76B4C0; color: #fff; text-shadow: none; }

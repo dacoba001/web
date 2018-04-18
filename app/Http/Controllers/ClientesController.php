@@ -13,7 +13,7 @@ class ClientesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        $minstocks = json_decode(file_get_contents($this->ServerTwo.'/stocks/min'), true);
         Session::set('variable', $minstocks);
     }
 
@@ -42,12 +42,12 @@ class ClientesController extends Controller
     }
     public function index()
     {
-        $clientes = json_decode(file_get_contents('http://localhost:8001/clientes'), true);
+        $clientes = json_decode(file_get_contents($this->ServerOne.'/clientes'), true);
         return view('cliente.clienteslista',['clientes' => $clientes]);
     }
     public function create($user_id = null)
     {
-        $users = json_decode(file_get_contents('http://localhost:8001/clientes/users'), true);
+        $users = json_decode(file_get_contents($this->ServerOne.'/clientes/users'), true);
         return view("cliente.clientes",['users' => $users, 'user_id' => $user_id]);
     }
     public function users()
@@ -63,7 +63,7 @@ class ClientesController extends Controller
                 $request, $validator
             );
         }
-        $usuario = $this->file_post_contents('http://localhost:8001/clientes/users', 'POST', $request->all());
+        $usuario = $this->file_post_contents($this->ServerOne.'/clientes/users', 'POST', $request->all());
         $usuario = json_decode($usuario);
         return redirect()->action(
             'ClientesController@create', ['user_id' => $usuario->id]
@@ -79,13 +79,13 @@ class ClientesController extends Controller
                 $request, $validator
             );
         }
-        $this->file_post_contents('http://localhost:8001/clientes', 'POST', $request->all());
-        $clientes = json_decode(file_get_contents('http://localhost:8001/clientes'), true);
+        $this->file_post_contents($this->ServerOne.'/clientes', 'POST', $request->all());
+        $clientes = json_decode(file_get_contents($this->ServerOne.'/clientes'), true);
         return view('cliente.clienteslista',['clientes' => $clientes]);
     }
     public function show($id)
     {
-        $cliente = json_decode(file_get_contents('http://localhost:8001/clientes/'.$id), true);
+        $cliente = json_decode(file_get_contents($this->ServerOne.'/clientes/'.$id), true);
         return view("cliente.clientesmod", $cliente);
     }
     public function edit($id)
@@ -100,14 +100,14 @@ class ClientesController extends Controller
                 $request, $validator
             );
         }
-        $this->file_post_contents('http://localhost:8001/clientes/'.$id, 'PUT', $request->all());
-        $clientes = json_decode(file_get_contents('http://localhost:8001/clientes'), true);
+        $this->file_post_contents($this->ServerOne.'/clientes/'.$id, 'PUT', $request->all());
+        $clientes = json_decode(file_get_contents($this->ServerOne.'/clientes'), true);
         return view('cliente.clienteslista',['clientes' => $clientes]);
     }
     public function destroy($id)
     {
-        $this->delete_json('http://localhost:8001/clientes/'.$id, 'DELETE');
-        $clientes = json_decode(file_get_contents('http://localhost:8001/clientes'), true);
+        $this->delete_json($this->ServerOne.'/clientes/'.$id, 'DELETE');
+        $clientes = json_decode(file_get_contents($this->ServerOne.'/clientes'), true);
         return view('cliente.clienteslista',['clientes' => $clientes]);
     }
 

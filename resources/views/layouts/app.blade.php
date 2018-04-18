@@ -118,7 +118,7 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                        {{--<li><a href="{{ url('/register') }}">Register</a></li>--}}
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -141,6 +141,52 @@
     <script src="{{URL::asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets/js/jquery.flexslider.js')}}"></script>
     <script src="{{URL::asset('assets/js/jquery.custom.js')}}"></script>
+    <script>
+        $(document).on("click", "#entregarModalbtn", function () {
+            var proFrm = document.getElementById('form-pedido-deails') || null;
+            var proUrl = $(this).data('url');
+            var proAction = $(this).data('action');
+            var proActionText = $(this).data('action_text');
+            var proId = $(this).data('id');
+            var proNombre = $(this).data('nombre');
+            var proImage = $(this).data('image');
+            var proUrlImage = $(this).data('url_image');
+            var proTipo = $(this).data('tipo');
+            var proDescripcion = $(this).data('descripcion');
+            var proPrecio = $(this).data('precio');
+            var proCantidad = $(this).data('cantidad');
+            var proStock = $(this).data('stock');
+            var proCantidadEntregado = $(this).data('cantidad_entregado');
+            var proCantidadDevuelto = $(this).data('cantidad_devuelto');
+            $(".modal-body #bookId").val( proNombre );
+            document.getElementById("proNombre").innerHTML = proNombre;
+            document.getElementById("proImage").src = proUrlImage + proImage;
+            document.getElementById("proPrecio").innerHTML = proPrecio;
+            document.getElementById("proTipo").innerHTML = proTipo;
+            document.getElementById("proDescripcion").innerHTML = proDescripcion;
+            document.getElementById("proCantidadEntregado").innerHTML = proCantidadEntregado;
+            document.getElementById("proCantidadPorEntregar").innerHTML = proCantidad - proCantidadEntregado;
+            document.getElementById("proCantidadDevuelto").innerHTML = proCantidadDevuelto;
+            document.getElementById('proCantidadPrcesar').placeholder = proActionText;
+            document.getElementById('proCantidadPrcesar').value = "";
+            document.getElementById('proButton').innerHTML = proActionText+ " Productos";
+            if((proStock < (proCantidad - proCantidadEntregado)) && proActionText === "Entregar")
+            {
+                document.getElementById("proStock").className = "badge badge-danger";
+                document.getElementById("proStock").innerHTML = "Stock: " + proStock;
+            }
+            else
+            {
+                document.getElementById("proStock").className = "";
+                document.getElementById("proStock").innerHTML = "";
+            }
+            if(proFrm)
+            {
+                proFrm.action = proUrl + proAction + proId
+            }
+            document.getElementById("proCantidadPrcesar").focus();
+        });
+    </script>
     <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>

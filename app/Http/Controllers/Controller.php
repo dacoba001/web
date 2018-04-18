@@ -11,4 +11,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
+    protected $ServerOne = "http://localhost:8001";
+    protected $ServerTwo = "http://localhost:8002";
+    protected $ServerThree = "http://localhost:8003";
 }

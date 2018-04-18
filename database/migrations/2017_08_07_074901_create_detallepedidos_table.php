@@ -31,6 +31,6 @@ class CreateDetallepedidosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('carritos');
+        Schema::drop('detallepedidos');
     }
 }

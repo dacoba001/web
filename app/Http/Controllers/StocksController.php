@@ -16,7 +16,7 @@ class StocksController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        $minstocks = json_decode(file_get_contents($this->ServerTwo.'/stocks/min'), true);
         Session::set('variable', $minstocks);
     }
 
@@ -30,19 +30,19 @@ class StocksController extends Controller
 
     public function index()
     {
-        $stocks = json_decode(file_get_contents('http://localhost:8002/stocks'), true);
+        $stocks = json_decode(file_get_contents($this->ServerTwo.'/stocks'), true);
         return view('stock.stockslista',['stocks' => $stocks]);
     }
 
     public function minStock()
     {
-        $stocks = json_decode(file_get_contents('http://localhost:8002/stocks/listamin'), true);
+        $stocks = json_decode(file_get_contents($this->ServerTwo.'/stocks/listamin'), true);
         return view('stock.stockminslista',['stocks' => $stocks]);
     }
 
     public function create()
     {
-        $productos = json_decode(file_get_contents('http://localhost:8002/productos'), true);
+        $productos = json_decode(file_get_contents($this->ServerTwo.'/productos'), true);
         return view('stock.stocks',['productos' => $productos]);
     }
 
@@ -54,16 +54,16 @@ class StocksController extends Controller
                 $request, $validator
                 );
         }
-        $this->file_post_contents('http://localhost:8002/stocks', 'POST', $request->all());
-        $stocks = json_decode(file_get_contents('http://localhost:8002/stocks'), true);
-        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        $this->file_post_contents($this->ServerTwo.'/stocks', 'POST', $request->all());
+        $stocks = json_decode(file_get_contents($this->ServerTwo.'/stocks'), true);
+        $minstocks = json_decode(file_get_contents($this->ServerTwo.'/stocks/min'), true);
         Session::set('variable', $minstocks);
         return view('stock.stockslista',['stocks' => $stocks]);
     }
 
     public function show($id)
     {
-        $stock = json_decode(file_get_contents('http://localhost:8002/stocks/'.$id), true);
+        $stock = json_decode(file_get_contents($this->ServerTwo.'/stocks/'.$id), true);
         return view("stock.stocksmod", ['stock' => $stock]);
     }
 
@@ -80,17 +80,17 @@ class StocksController extends Controller
                 $request, $validator
                 );
         }
-        $this->file_post_contents('http://localhost:8002/stocks/'.$id, 'PUT', $request->all());
-        $stocks = json_decode(file_get_contents('http://localhost:8002/stocks'), true);
-        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        $this->file_post_contents($this->ServerTwo.'/stocks/'.$id, 'PUT', $request->all());
+        $stocks = json_decode(file_get_contents($this->ServerTwo.'/stocks'), true);
+        $minstocks = json_decode(file_get_contents($this->ServerTwo.'/stocks/min'), true);
         Session::set('variable', $minstocks);
         return view('stock.stockslista',['stocks' => $stocks]);
     }
 
     public function destroy($id)
     {
-        $this->delete_json('http://localhost:8002/stocks/'.$id, 'DELETE');
-        $stocks = json_decode(file_get_contents('http://localhost:8002/stocks'), true);
+        $this->delete_json($this->ServerTwo.'/stocks/'.$id, 'DELETE');
+        $stocks = json_decode(file_get_contents($this->ServerTwo.'/stocks'), true);
         return view('stock.stockslista',['stocks' => $stocks]);
     }
 

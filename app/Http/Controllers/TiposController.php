@@ -17,7 +17,7 @@ class TiposController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        $minstocks = json_decode(file_get_contents($this->ServerTwo.'/stocks/min'), true);
         Session::set('variable', $minstocks);
     }
     protected function validator($option, array $data)
@@ -35,7 +35,7 @@ class TiposController extends Controller
     }
     public function index()
     {
-        $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
+        $tipos = json_decode(file_get_contents($this->ServerTwo.'/tipos'), true);
         return view('tipo.tiposlista',['tipos' => $tipos]);
     }
     public function create()
@@ -53,17 +53,17 @@ class TiposController extends Controller
         $request['tip_image'] = $fileName;
         $validator = $this->validator('create', $request->all());
         if ($validator->fails()) {
-            $this->throwValidationException(
+               $this->throwValidationException(
                 $request, $validator
             );
         }
-        $this->file_post_contents('http://localhost:8002/tipos', 'POST', $request->all());
-        $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
+        $this->file_post_contents($this->ServerTwo.'/tipos', 'POST', $request->all());
+        $tipos = json_decode(file_get_contents($this->ServerTwo.'/tipos'), true);
         return view('tipo.tiposlista',['tipos' => $tipos]);
     }
     public function show($id)
     {
-        $tipo = json_decode(file_get_contents('http://localhost:8002/tipos/'.$id), true);
+        $tipo = json_decode(file_get_contents($this->ServerTwo.'/tipos/'.$id), true);
         return view("tipo.tiposmod", $tipo);
     }
     public function edit($id)
@@ -78,16 +78,16 @@ class TiposController extends Controller
                 $request, $validator
             );
         }
-        $this->file_post_contents('http://localhost:8002/tipos/'.$id, 'PUT', $request->all());
-        $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
+        $this->file_post_contents($this->ServerTwo.'/tipos/'.$id, 'PUT', $request->all());
+        $tipos = json_decode(file_get_contents($this->ServerTwo.'/tipos'), true);
         return view('tipo.tiposlista',['tipos' => $tipos]);
     }
     public function destroy($id)
     {
-        $variable = $this->delete_json('http://localhost:8002/tipos/'.$id, 'DELETE');
-        $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
+        $variable = $this->delete_json($this->ServerTwo.'/tipos/'.$id, 'DELETE');
+        $tipos = json_decode(file_get_contents($this->ServerTwo.'/tipos'), true);
         if($variable == '"nodelete"'){
-            $tipo = json_decode(file_get_contents('http://localhost:8002/tipos/'.$id), true);
+            $tipo = json_decode(file_get_contents($this->ServerTwo.'/tipos/'.$id), true);
             $error = "El tipo \"".$tipo['tip_nombre']."\" no se puede eliminar";
             return view('tipo.tiposlista',['tipos' => $tipos, 'error' => $error]);
         }

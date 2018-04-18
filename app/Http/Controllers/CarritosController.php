@@ -12,7 +12,7 @@ class CarritosController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        $minstocks = json_decode(file_get_contents($this->ServerTwo.'/stocks/min'), true);
         Session::set('variable', $minstocks);
     }
     public function index()
@@ -22,11 +22,11 @@ class CarritosController extends Controller
 
     public function productos()
     {
-        $carrito = json_decode(file_get_contents('http://localhost:8003/carritos/cliente/'. Auth::user()->id), true);
-        $listadecliente = json_decode(file_get_contents('http://localhost:8001/clientes/users/'. Auth::user()->id), true);
+        $carrito = json_decode(file_get_contents($this->ServerThree.'/carritos/cliente/'. Auth::user()->id), true);
+        $listadecliente = json_decode(file_get_contents($this->ServerOne.'/clientes/users/'. Auth::user()->id), true);
         if ( Auth::user()->tipo_cuenta == 'Administrador' or Auth::user()->tipo_cuenta == 'Secretaria')
         {
-            $listadecliente = json_decode(file_get_contents('http://localhost:8001/clientes'), true);
+            $listadecliente = json_decode(file_get_contents($this->ServerOne.'/clientes'), true);
         }
         return view('carrito.productos_cliente',['productos' => $carrito, 'listadecliente' => $listadecliente]);
     }
@@ -36,18 +36,18 @@ class CarritosController extends Controller
     }
     public function store(Request $request)
     {
-        $this->file_post_contents('http://localhost:8003/carritos', 'POST', $request->all());
+        $this->file_post_contents($this->ServerThree.'/carritos', 'POST', $request->all());
 //        return redirect()->action(
 //            'HomeController@getTipos'
 //        );
-        $minstocks = json_decode(file_get_contents('http://localhost:8002/stocks/min'), true);
+        $minstocks = json_decode(file_get_contents($this->ServerTwo.'/stocks/min'), true);
         Session::set('variable', $minstocks);
-        $tipos = json_decode(file_get_contents('http://localhost:8002/tipos'), true);
+        $tipos = json_decode(file_get_contents($this->ServerTwo.'/tipos'), true);
         if (Auth::guest()){
             return view('hometipos',['tipos' => $tipos,'carr_cant' => 0]);
         }
-        $carrito = json_decode(file_get_contents('http://localhost:8002/carritos/cliente/'. Auth::user()->id), true);
-        $productos = json_decode(file_get_contents('http://localhost:8002/productos/carrito/'. Auth::user()->id), true);
+        $carrito = json_decode(file_get_contents($this->ServerTwo.'/carritos/cliente/'. Auth::user()->id), true);
+        $productos = json_decode(file_get_contents($this->ServerTwo.'/productos/carrito/'. Auth::user()->id), true);
         return view('hometipos',['tipos' => $tipos, 'productos' => $productos,'carr_cant' => count($carrito)]);
     }
     public function show($id)
@@ -64,9 +64,9 @@ class CarritosController extends Controller
     }
     public function destroy($id)
     {
-        $this->delete_json('http://localhost:8003/carritos/'.$id, 'DELETE');
-        $carrito = json_decode(file_get_contents('http://localhost:8003/carritos/cliente/'. Auth::user()->id), true);
-        $listadecliente = json_decode(file_get_contents('http://localhost:8001/clientes/users/'. Auth::user()->id), true);
+        $this->delete_json($this->ServerThree.'/carritos/'.$id, 'DELETE');
+        $carrito = json_decode(file_get_contents($this->ServerThree.'/carritos/cliente/'. Auth::user()->id), true);
+        $listadecliente = json_decode(file_get_contents($this->ServerOne.'/clientes/users/'. Auth::user()->id), true);
         return view('carrito.productos_cliente',['productos' => $carrito, 'listadecliente' => $listadecliente]);
     }
     function file_post_contents($url, $method, $data, $username = null, $password = null)

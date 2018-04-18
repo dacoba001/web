@@ -6,7 +6,8 @@
             <div class="col-md-10 col-md-offset-1">
                 <h1>Administrar Pedidos</h1>
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="/pedidos">Morstar Pedidos</a></li>
+                        <li @if(isset($pendiente) and $pendiente) class="active" @endif><a href="/pedidos">Morstar Pedidos Pendientes</a></li>
+                        <li @if(isset($entregado) and $entregado) class="active" @endif><a href="/pedidoss/estado/1">Morstar Pedidos Entregados</a></li>
                     </ul>
                 <br>
                 <div class="row">
@@ -21,9 +22,8 @@
                             <table class="table table-bordered">
                                 <thead>
                                   <tr>
-                                    <th>Fecah del pedido</th>
+                                    <th class="text-right">Fecha del pedido</th>
                                     <th>Estado</th>
-                                    <th>Usuario</th>
                                     <th>Cliente</th>
                                     <th class="text-center" style="width: 1px;">Detalle</th>
                                   </tr>
@@ -31,12 +31,15 @@
                                 <tbody>
                                     @foreach ($pedidos as $id => $pedido)
                                     <tr>
-                                        <td>{{$pedido['ped_fecha_ini']}}</td>
-                                        <td>{{$pedido['ped_estado']}}</td>
-                                        <td>{{$pedido['user']['appaterno']}} {{$pedido['user']['apmaterno']}}, {{$pedido['user']['nombre']}}</td>
-                                        <td>{{$pedido['cliente']['cli_nombre']}} (Zona {{$pedido['cliente']['cli_zona']}})</td>
+                                        <td class="text-right">{{ date("h:sa - d/m/Y", strtotime($pedido['ped_fecha_ini'])) }}</td>
+                                        <td>{{ $pedido['ped_estado'] }}</td>
                                         <td>
-                                            <a href="{{ url('pedidos/')}}/{{$pedido['id']}}" class="btn btn-primary">Detalles</a>
+                                            {{ $pedido['user']['appaterno'] }} {{ $pedido['user']['apmaterno'] }}, {{ $pedido['user']['nombre'] }}
+                                            <br><strong>Ferreteria: </strong>{{ $pedido['cliente']['cli_nombre'] }}
+                                            <br><strong>Zona: </strong>Zona {{ $pedido['cliente']['cli_zona'] }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('pedidos/')}}/{{$pedido['id']}}" class="btn btn-primary btn-sm">Detalles</a>
                                         </td>
                                     </tr>
                                     @endforeach
