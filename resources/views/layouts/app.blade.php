@@ -180,6 +180,12 @@
                 document.getElementById("proStock").className = "";
                 document.getElementById("proStock").innerHTML = "";
             }
+            if(proActionText === "Devolver")
+            {
+                document.getElementById("devolucion_stock").style.display = "block";
+            }else{
+                document.getElementById("devolucion_stock").style.display = "none";
+            }
             if(proFrm)
             {
                 proFrm.action = proUrl + proAction + proId

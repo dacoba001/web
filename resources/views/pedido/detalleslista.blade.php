@@ -6,7 +6,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <h1>Administrar Pedidos</h1>
                 <ul class="nav nav-tabs">
-                    <li><a href="/pedidos">Morstar Pedidos Pendientes</a></li>
+                        <li><a href="/pedidos">Morstar Pedidos Pendientes</a></li>
                     <li><a href="/pedidoss/estado/1">Morstar Pedidos Entregados</a></li>
                     <li class="active"><a>Detalle del pedido</a></li>
                 </ul>
@@ -196,6 +196,16 @@
                                                                     Por Entregar
                                                                 </li>
                                                                 <li class="list-group-item"><span class="badge" id="proCantidadDevuelto">14</span>Devueltos</li>
+                                                                <li id="devolucion_stock" class="list-group-item" style="display: none">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-4">
+                                                                            Reponer en Stock
+                                                                        </div>
+                                                                        <div class="col-sm-offset-4 col-sm-4">
+                                                                            <input type="checkbox" class="text-right pull-right" id="proReponerStock" name="proReponerStock" style="width: 20px;height: 20px">
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
                                                                 <li class="list-group-item">
                                                                     <div class="row">
                                                                         <div class="col-sm-4">

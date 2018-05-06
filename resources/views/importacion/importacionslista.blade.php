@@ -25,9 +25,8 @@
                                                     <th>Fecha</th>
                                                     <th>Nombre</th>
                                                     <th>Tipo</th>
-                                                    <th>Descripcion del Producto</th>
-                                                    <th class="text-center">Estado</th>
                                                     <th class="text-center">Cantidad</th>
+                                                    <th class="text-center">Estado Actual</th>
                                                     @if ( !Auth::guest())
                                                         <th class="text-center" style="width: 1px;">Opcion</th>
                                                     @endif
@@ -39,23 +38,31 @@
                                                         <td>{{$producto['imp_fecha']}}</td>
                                                         <td>{{$producto['producto']['pro_nombre']}}</td>
                                                         <td>{{$producto['producto']['tipo']['tip_nombre']}}</td>
-                                                        <td>{{$producto['producto']['pro_descripcion']}}</td>
-                                                        <td class="text-center">{{$producto['imp_estado']}}</td>
                                                         <td class="text-center">{{$producto['imp_cantidad']}}</td>
+                                                        <td class="text-center">{{$producto['imp_estado']}}</td>
                                                         @if ( !Auth::guest())
                                                             <td>
                                                                 <form action="{{ url('importacions/')}}/{{$producto['id']}}" method="POST">
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <input type="hidden" name="_method" value="PUT">
-                                                                    <button class="btn btn-success btn-xs" type="submit" @if ( $producto['imp_estado'] == "importado") style="display: none;" @endif>
-                                                                        <i class="fa fa-cart-arrow-down"></i>
-                                                                        Importar
+                                                                    <button class="btn btn-success btn-lg" type="submit" @if ( $producto['imp_estado'] == "Importado") style="display: none;" @endif>
+                                                                        @if ($producto['imp_estado'] === "Peticion")
+                                                                            A Embarcado
+                                                                        @elseif ($producto['imp_estado'] === "Embarcado")
+                                                                            A En Frontera
+                                                                        @elseif ($producto['imp_estado'] === "En Frontera")
+                                                                            A Canal Aduanero
+                                                                        @elseif ($producto['imp_estado'] === "Canal Aduanero")
+                                                                            A Aduana Nacional
+                                                                        @elseif ($producto['imp_estado'] === "Aduana Nacional")
+                                                                            Importar
+                                                                        @endif
                                                                     </button>
                                                                 </form>
                                                                 <form action="{{ url('importacions/')}}/{{$producto['id']}}" method="POST">
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <input type="hidden" name="_method" value="DELETE" >
-                                                                    <button class="btn btn-danger btn-xs" type="submit" @if ( $producto['imp_estado'] == "importado") disabled @endif>
+                                                                    <button class="btn btn-danger btn-xs btn-block" type="submit" @if ( $producto['imp_estado'] == "Importado") disabled @endif>
                                                                         <i class="fa fa-cart-arrow-down"></i>
                                                                         Quitar
                                                                     </button>
