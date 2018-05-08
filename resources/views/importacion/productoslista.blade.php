@@ -22,46 +22,59 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                 <tr>
-                                                    <th>Nombre</th>
-                                                    <th>Tipo</th>
-                                                    <th>Descripcion del Producto</th>
-                                                    <th class="text-center">Cantidad Actual</th>
+                                                    <th width="50%">Producto</th>
+                                                    <th class="text-center">Cantidad</th>
                                                     @if ( !Auth::guest())
-                                                        <th>Cantidad</th>
-                                                        <th class="text-center" style="width: 1px;">Opcion</th>
+                                                        <th class="text-center">Cantidad a Importar</th>
                                                     @endif
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @foreach ($productos as $id => $producto)
                                                     <tr>
-                                                        <td>{{$producto['pro_nombre']}}</td>
-                                                        <td>{{$producto['tipo']['tip_nombre']}}</td>
-                                                        <td>{{$producto['pro_descripcion']}}</td>
-                                                        <td class="text-center" @if ($producto['stocks']['stk_cantidad'] <= $producto['stocks']['stk_cantmin']) title="Cantidad minima: {{ $producto['stocks']['stk_cantmin'] }}" @endif>{{$producto['stocks']['stk_cantidad']}}
-                                                            @if ($producto['stocks']['stk_cantidad'] <= $producto['stocks']['stk_cantmin'])
-                                                                <i class="fa fa-exclamation-circle" aria-hidden="true" style="color:#af1b1b;cursor: pointer;" ></i>
-                                                            @endif
+                                                        <td width="50%">
+                                                            <strong><big>{{$producto['pro_nombre']}}</big></strong><br>
+                                                            <strong>Tipo: </strong>{{$producto['tipo']['tip_nombre']}}<br>
+                                                            <strong>Descripcion: </strong>{{$producto['pro_descripcion']}}
+                                                        </td>
+                                                        <td width="25%" class="text-center">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <big><strong>{{$producto['stocks']['stk_cantidad']}}</strong></big><br>
+                                                                    Cantidad Actual
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <span class="{{$producto['stocks']['stk_cantidad'] <= $producto['stocks']['stk_cantmin'] ? 'text-danger' : 'text-success'}}">
+                                                                        <big><strong>{{ $producto['stocks']['stk_cantmin'] }}</strong></big><br>
+                                                                        Cantidad Minima
+                                                                    </span>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                         @if ( !Auth::guest())
-                                                            <form class="form-horizontal" role="form" method="POST" action="{{ url('importacions')}}">
-                                                                {{ csrf_field() }}
-                                                                <td><input name="imp_cantidad" type="number" class="form-control" placeholder="cantidad del producto" min="1"></td>
-                                                                <td>
-                                                                    <input type="hidden" name="producto_id" value="{{ $producto['id'] }}">
-                                                                    <button class="btn btn-success" type="submit">
-                                                                        <i class="fa fa-caret-square-o-up fa-1x"></i>
-                                                                        Importar Producto
-                                                                    </button>
-                                                                </td>
-                                                            </form>
+                                                            <td>
+                                                                <form class="form-inline" method="POST" role="form" action="{{ url('importacions')}}" style="text-align: right;">
+                                                                    {{ csrf_field() }}
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="input-group">
+                                                                                <input name="imp_cantidad" type="number" class="form-control" placeholder="Cantidad" min="1">
+                                                                                <input type="hidden" name="producto_id" value="{{ $producto['id'] }}">
+                                                                                <span class="input-group-btn">
+                                                                                    <button class="btn btn-primary" type="submit">Importar</button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </td>
                                                         @endif
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
                                             </table>
                                             @if (isset($mensage))
-                                                <div class="alert alert-warning">
+                                                <div class="alert alert-success">
                                                     <strong>¡Agregado! </strong>{{ $mensage }}
                                                 </div>
                                             @endif

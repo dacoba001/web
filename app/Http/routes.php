@@ -46,11 +46,13 @@ Route::post('/pedidos/devolver/{detallepedido}', 'PedidosController@postDevolver
 
 Route::resource('importacions', 'ImportacionsController');
 
-Route::get('reportes/importacions', 'ImportacionsController@reporteImportacions');
-Route::post('reportes/importacions', 'ImportacionsController@reporteImportacions');
-Route::get('reportes/pedidos', 'PedidosController@reportePedidos');
-Route::post('reportes/pedidos', 'PedidosController@reportePedidos');
-Route::get('reportes/pedidosdetalle/{pedido}', 'PedidosController@reportePedidosDetalle');
+Route::get('reportes/importacions', 'ReportesController@reporteImportacions');
+Route::post('reportes/importacions', 'ReportesController@reporteImportacions');
+Route::get('reportes/pedidos', 'ReportesController@reportePedidos');
+Route::post('reportes/pedidos', 'ReportesController@reportePedidos');
+Route::get('reportes/pedidosdetalle/{pedido}', 'ReportesController@reportePedidosDetalle');
+Route::get('reportes/stocks', 'ReportesController@reporteStocks');
+Route::post('reportes/stocks', 'ReportesController@reporteStocks');
 
 Route::auth();
 Route::get('/home', 'HomeController@index');

@@ -20,6 +20,7 @@
     <link href="{{URL::asset('assets/css/styles2.css')}}" rel="stylesheet">
     <link href="{{URL::asset('assets/css/latofonts.css')}}" rel="stylesheet">
     <link href="{{URL::asset('assets/css/latostyle.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('assets/css/lorenzetti.css')}}" rel="stylesheet">
 
     <style>
         body {

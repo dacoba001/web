@@ -37,11 +37,11 @@
                                             <thead>
                                             <tr>
                                                 <th>Producto</th>
-                                                <th>Datos del Producto</th>
+                                                <th width="40%">Datos del Producto</th>
                                                 <th class="text-right">Precio</th>
                                                 @if ( !Auth::guest())
-                                                    <th class="text-center">Entregados</th>
                                                     <th class="text-center">Por Entregar</th>
+                                                    <th class="text-center">Entregados</th>
                                                     <th class="text-center">Devuelto</th>
                                                     <th class="text-right">Sub Total</th>
                                                     @if ( Auth::user()->tipo_cuenta == 'Administrador')
@@ -71,8 +71,8 @@
                                                         <br><strong>Descripcion:</strong> {{$producto['producto']['pro_descripcion']}}
                                                     </td>
                                                     <td class="text-right align-middle">{{$producto['ped_precio']}} Bs.</td>
-                                                    <td class="text-center align-middle">{{$producto['ped_cantidad_entregado']}}</td>
                                                     <td class="text-center align-middle">{{$producto['ped_cantidad'] - $producto['ped_cantidad_entregado']}}
+                                                    <td class="text-center align-middle">{{$producto['ped_cantidad_entregado']}}</td>
                                                         @if ( Auth::user()->tipo_cuenta == 'Administrador')
                                                             @if (($producto['producto']['stocks']['stk_cantidad'] < ($producto['ped_cantidad'] - $producto['ped_cantidad_entregado'])) and ($pedido['ped_estado'] != 'Entregado'))
                                                                 <span class="text-danger">

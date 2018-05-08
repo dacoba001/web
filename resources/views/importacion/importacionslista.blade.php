@@ -22,11 +22,10 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                 <tr>
-                                                    <th>Fecha</th>
                                                     <th>Nombre</th>
-                                                    <th>Tipo</th>
-                                                    <th class="text-center">Cantidad</th>
-                                                    <th class="text-center">Estado Actual</th>
+                                                    <th class="text-center">Fecha</th>
+                                                    <th class="text-center">Cantidad a Importar</th>
+                                                    <th class="text-center">Estado de la Importacion</th>
                                                     @if ( !Auth::guest())
                                                         <th class="text-center" style="width: 1px;">Opcion</th>
                                                     @endif
@@ -34,48 +33,53 @@
                                                 </thead>
                                                 <tbody>
                                                 @foreach ($productos as $id => $producto)
-                                                    <tr>
-                                                        <td>{{$producto['imp_fecha']}}</td>
-                                                        <td>{{$producto['producto']['pro_nombre']}}</td>
-                                                        <td>{{$producto['producto']['tipo']['tip_nombre']}}</td>
-                                                        <td class="text-center">{{$producto['imp_cantidad']}}</td>
-                                                        <td class="text-center">{{$producto['imp_estado']}}</td>
-                                                        @if ( !Auth::guest())
+                                                    @if($producto['imp_estado'] != "Importado")
+                                                        <tr>
                                                             <td>
+                                                                <big><strong>{{$producto['producto']['pro_nombre']}}</strong></big><br>
+                                                                <strong>Tipo: </strong>{{$producto['producto']['tipo']['tip_nombre']}}
+                                                            </td>
+                                                            <td class="text-center">{{date('h:i a - d/m/Y', strtotime($producto['imp_fecha']))}}</td>
+                                                            <td class="text-center">{{$producto['imp_cantidad']}}</td>
+                                                            <td class="text-center"><big><strong>{{$producto['imp_estado']}}</strong></big><br>
                                                                 <form action="{{ url('importacions/')}}/{{$producto['id']}}" method="POST">
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <input type="hidden" name="_method" value="PUT">
-                                                                    <button class="btn btn-success btn-lg" type="submit" @if ( $producto['imp_estado'] == "Importado") style="display: none;" @endif>
+                                                                    <button class="btn btn-success" type="submit" @if ( $producto['imp_estado'] == "Importado") style="display: none;" @endif>
+                                                                        Cambiar a
                                                                         @if ($producto['imp_estado'] === "Peticion")
-                                                                            A Embarcado
+                                                                            Embarcado
                                                                         @elseif ($producto['imp_estado'] === "Embarcado")
-                                                                            A En Frontera
+                                                                            Frontera
                                                                         @elseif ($producto['imp_estado'] === "En Frontera")
-                                                                            A Canal Aduanero
+                                                                            Canal Aduanero
                                                                         @elseif ($producto['imp_estado'] === "Canal Aduanero")
-                                                                            A Aduana Nacional
+                                                                            Aduana Nacional
                                                                         @elseif ($producto['imp_estado'] === "Aduana Nacional")
-                                                                            Importar
+                                                                            Importado
                                                                         @endif
                                                                     </button>
                                                                 </form>
-                                                                <form action="{{ url('importacions/')}}/{{$producto['id']}}" method="POST">
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                    <input type="hidden" name="_method" value="DELETE" >
-                                                                    <button class="btn btn-danger btn-xs btn-block" type="submit" @if ( $producto['imp_estado'] == "Importado") disabled @endif>
-                                                                        <i class="fa fa-cart-arrow-down"></i>
-                                                                        Quitar
-                                                                    </button>
-                                                                </form>
                                                             </td>
-                                                        @endif
-                                                    </tr>
+                                                            @if ( !Auth::guest())
+                                                                <td>
+                                                                    <form action="{{ url('importacions/')}}/{{$producto['id']}}" method="POST">
+                                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                        <input type="hidden" name="_method" value="DELETE" >
+                                                                        <button class="btn btn-danger" type="submit" @if ( $producto['imp_estado'] == "Importado") disabled @endif>
+                                                                            <i class="fa fa-trash"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
+                                                            @endif
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                                 </tbody>
                                             </table>
                                             @if (isset($mensage))
                                                 <div class="alert alert-success">
-                                                    <strong>¡Importado! </strong>{{ $mensage }}
+                                                    <strong>¡Exitoso! </strong>{{ $mensage }}
                                                 </div>
                                             @endif
                                             @if (isset($delete))
