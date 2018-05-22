@@ -9,6 +9,7 @@
                     <li class="active"><a href="{{ url('reportes/importacions')}}">Reporte de Importaciones</a></li>
                     <li><a href="{{ url('reportes/pedidos')}}">Reporte de Pedidos</a></li>
                     <li><a href="{{ url('reportes/stocks')}}">Reporte de Stcok</a></li>
+                    <li><a href="{{ url('reportes/clientes')}}">Reporte de Clientes</a></li>
                 </ul>
                 <br>
                 <?php

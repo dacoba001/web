@@ -68,6 +68,23 @@ class ReportesController extends Controller
         return view('reporte.stocks',['stocks' => $stocks, 'stock_id' => isset($request['stock_id']) ? $request['stock_id'] : 0, 'stock_moves' => $stock_moves, 'start_date' => $start_date, 'end_date' => $end_date]);
     }
 
+    public function reporteClientes(Request $request)
+    {
+        if($request['start_date']){
+            $start_date = $request['start_date'];
+            $end_date = $request['end_date'];
+        }else{
+            $start_date = new Carbon('first day of this month');
+            $start_date = $start_date->format("Y-m-d");
+            $end_date = new Carbon('last day of this month');
+            $end_date = $end_date->format("Y-m-d");
+            $request['start_date'] = $start_date;
+            $request['end_date'] = $end_date;
+        }
+        $clientes = json_decode($this->file_post_contents($this->ServerThree.'/reportes/clientes', 'POST', $request->all()),true);
+        return view('reporte.clientes',['clientes' => $clientes, 'start_date' => $start_date, 'end_date' => $end_date]);
+    }
+
     function file_post_contents($url, $method, $data, $username = null, $password = null)
     {
         $postdata = http_build_query($data);

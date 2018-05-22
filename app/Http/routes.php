@@ -53,6 +53,8 @@ Route::post('reportes/pedidos', 'ReportesController@reportePedidos');
 Route::get('reportes/pedidosdetalle/{pedido}', 'ReportesController@reportePedidosDetalle');
 Route::get('reportes/stocks', 'ReportesController@reporteStocks');
 Route::post('reportes/stocks', 'ReportesController@reporteStocks');
+Route::get('reportes/clientes', 'ReportesController@reporteClientes');
+Route::post('reportes/clientes', 'ReportesController@reporteClientes');
 
 Route::auth();
 Route::get('/home', 'HomeController@index');
