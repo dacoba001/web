@@ -4,8 +4,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <h1>Reportes</h1>
-                <ul class="nav nav-tabs">
+                <h1>Reporte de Impotaciones</h1>
+                @include('reporte.fecha_reporte')
+                <ul class="nav nav-tabs hidden-print">
                     <li class="active"><a href="{{ url('reportes/importacions')}}">Reporte de Importaciones</a></li>
                     <li><a href="{{ url('reportes/pedidos')}}">Reporte de Pedidos</a></li>
                     <li><a href="{{ url('reportes/stocks')}}">Reporte de Stcok</a></li>
@@ -35,7 +36,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form class="form-inline" method="POST" action="{{ url('reportes/importacions')}}" style="text-align: right;">
+                                    <form class="form-inline hidden-print" method="POST" action="{{ url('reportes/importacions')}}" style="text-align: right;">
                                         {{ csrf_field() }}
                                         <div class="form-group">
                                             <label for="start_date">Reporte Del: </label>
@@ -46,8 +47,9 @@
                                             <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date or old('end_date')}}">
                                         </div>
                                         <button type="submit" class="btn btn-default">Enviar</button>
+                                        <button class="btn btn-default hidden-print pull-right margin-left-xs" onclick="window.print()"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
                                     </form>
-                                    <div class="row">
+                                    <div class="row hidden-print">
                                         <div class="col-lg-12 text-center">
                                             <h3>Productos mas Importados</h3>
                                             @if(!empty($varproductos))

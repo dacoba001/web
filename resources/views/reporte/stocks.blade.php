@@ -4,8 +4,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <h1>Reportes</h1>
-                    <ul class="nav nav-tabs">
+                    <h1>Reporte de Stock</h1>
+                    @include('reporte.fecha_reporte')
+                    <ul class="nav nav-tabs hidden-print">
                         <li><a href="{{ url('reportes/importacions')}}">Reporte de Importaciones</a></li>
                         <li><a href="{{ url('reportes/pedidos')}}">Reporte de Pedidos</a></li>
                         <li class="active"><a href="{{ url('reportes/stocks')}}">Reporte de Stocks</a></li>
@@ -16,12 +17,12 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Importaciones
+                                    Stocks
                                 </div>
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <form class="form-inline" method="POST" action="{{ url('reportes/stocks')}}" style="text-align: right;">
+                                            <form class="form-inline hidden-print" method="POST" action="{{ url('reportes/stocks')}}" style="text-align: right;">
                                                 {{ csrf_field() }}
                                                 <div class="form-group">
                                                     <label for="start_date">Producto: </label>
@@ -41,6 +42,7 @@
                                                     <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date or old('end_date')}}">
                                                 </div>
                                                 <button type="submit" class="btn btn-default">Enviar</button>
+                                                <button class="btn btn-default hidden-print pull-right margin-left-xs" onclick="window.print()"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
                                             </form>
                                             <br>
                                             @if(!empty($stock_moves))

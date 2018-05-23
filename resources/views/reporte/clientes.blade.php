@@ -4,8 +4,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <h1>Reportes</h1>
-                    <ul class="nav nav-tabs">
+                    <h1>Reporte de Clientes</h1>
+                    @include('reporte.fecha_reporte')
+                    <ul class="nav nav-tabs hidden-print">
                         <li><a href="{{ url('reportes/importacions')}}">Reporte de Importaciones</a></li>
                         <li><a href="{{ url('reportes/pedidos')}}">Reporte de Pedidos</a></li>
                         <li><a href="{{ url('reportes/stocks')}}">Reporte de Stocks</a></li>
@@ -31,7 +32,7 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <form class="form-inline" method="POST" action="{{ url('reportes/clientes')}}" style="text-align: right;">
+                                            <form class="form-inline hidden-print" method="POST" action="{{ url('reportes/clientes')}}" style="text-align: right;">
                                                 {{ csrf_field() }}
 
                                                 <div class="form-group">
@@ -43,8 +44,9 @@
                                                     <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date or old('end_date')}}">
                                                 </div>
                                                 <button type="submit" class="btn btn-default">Enviar</button>
+                                                <button class="btn btn-default hidden-print pull-right margin-left-xs" onclick="window.print()"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
                                             </form>
-                                            <div class="row">
+                                            <div class="row hidden-print">
                                                 <div class="col-lg-12 text-center">
                                                     <h3>Clientes mas Frecuentes</h3>
                                                     @if(!empty($varclientes))
@@ -78,6 +80,7 @@
                                                             <th class="text-center">Telefono</th>
                                                             <th class="text-center">Cantidad Pedidos</th>
                                                             <th class="text-center">Cantidad Productos</th>
+                                                            {{--<th class="text-center hidden-print">Opciones</th>--}}
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -89,6 +92,9 @@
                                                                 <td class="text-center">{{$cliente['telefono']}}</td>
                                                                 <td class="text-center">{{$cliente['cant_pedidos']}}</td>
                                                                 <td class="text-center">{{$cliente['cant_productos']}}</td>
+                                                                {{--<td class="text-center hidden-print">--}}
+                                                                    {{--<a href="{{ url('reportes/clientes/')}}/{{$cliente['id']}}" class="btn btn-default btn-xs">Mas Detalles</a>--}}
+                                                                {{--</td>--}}
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
