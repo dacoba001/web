@@ -38,7 +38,7 @@
                 <div class="panel-body">
                     <div class="row">
                         @foreach ($tipos as $tipo)
-                            <div class="col-lg-4 col-md-6 col-xs-12">
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                 <div class="gallery">
                                     <a href="{{ url('home/productos')}}/{{$tipo['id']}}">
                                         <img src="{{URL::asset('assets/images/tipos')}}/{{$tipo['tip_image']}}" alt="{{$tipo['tip_nombre']}}" width="500" height="400">

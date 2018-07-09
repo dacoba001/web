@@ -40,7 +40,7 @@
                 <div class="panel-body">
                     <div class="row">
                         @foreach ($productos as $producto)
-                            <div class="col-lg-4 col-md-6 col-xs-12">
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                 <div class="gallery">
                                     <img src="{{URL::asset('assets/images/productos')}}/{{$producto['pro_image']}}" alt="{{$producto['pro_nombre']}}" width="500" height="400">
                                     <div class="desc">{{$producto['pro_nombre']}}<br>
